@@ -47,9 +47,9 @@ const GENERATE_LIST_CONFIG: ListConfig = {
   emptySubtitle: "请从“首页”生成你的第一个地址",
   searchPlaceholder: "搜索地址或备注……",
   deleteTitle: "删除地址",
-  getDeleteMessage: (key) => `Are you sure you want to delete this address\n(${key}@duck.com)?`,
+  getDeleteMessage: (key) => `确定要删除此地址吗？\n（${key}@duck.com）`,
   clearTitle: "清除所有地址",
-  clearMessage: "Are you sure you want to clear all addresses?\n\nThis action cannot be undone.",
+  clearMessage: "确定要清除所有地址吗？\n\n此操作无法撤销。",
   hideStorageKey: "hide_generated_addresses",
 };
 
@@ -60,9 +60,9 @@ const SEND_LIST_CONFIG: ListConfig = {
   emptySubtitle: "请在上方转换收件人邮箱以开始使用",
   searchPlaceholder: "搜索邮箱或备注……",
   deleteTitle: "删除发送地址",
-  getDeleteMessage: (key) => `Are you sure you want to delete the send address for\n${key}?`,
+  getDeleteMessage: (key) => `确定要删除此收件人的发送地址吗？\n${key}？`,
   clearTitle: "清除所有历史记录",
-  clearMessage: "Are you sure you want to clear all send history?\n\nThis action cannot be undone.",
+  clearMessage: "确定要清除所有发送历史吗？\n\n此操作无法撤销。",
   hideStorageKey: "hide_reverse_aliases",
 };
 

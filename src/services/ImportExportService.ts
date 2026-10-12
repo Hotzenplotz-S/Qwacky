@@ -187,7 +187,7 @@ export class ImportExportService {
           count: 0,
           duplicates: inFileDuplicates,
           invalid,
-          error: `Storage error: ${storageError instanceof Error ? storageError.message : 'Failed to save imported addresses'}`
+          error: `存储错误：${storageError instanceof Error ? storageError.message : '保存导入地址失败'}`
         };
       }
     } catch (error) {
@@ -197,7 +197,7 @@ export class ImportExportService {
         count: 0,
         duplicates: 0,
         invalid: 0,
-        error: `Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+        error: `导入失败：${error instanceof Error ? error.message : '未知错误'}`
       };
     }
   }
@@ -299,7 +299,7 @@ export class ImportExportService {
       return { data: JSON.stringify(exportData, null, 2), summary };
     } catch (error) {
       console.error('Error exporting backup:', error);
-      throw new Error('Failed to export backup');
+      throw new Error('导出备份失败');
     }
   }
 
@@ -518,7 +518,7 @@ export class ImportExportService {
       return {
         success: false,
         hasSession: false,
-        error: `Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+        error: `导入失败：${error instanceof Error ? error.message : '未知错误'}`
       };
     }
   }

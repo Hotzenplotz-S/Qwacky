@@ -174,7 +174,7 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
           onChange(false)
         }
       } else {
-        setStatus({ message: `Disabling ${name}...`, type: 'info' })
+        setStatus({ message: `正在关闭${name}……`, type: 'info' })
         const response = await api.runtime.sendMessage({
           action: 'toggleFeature',
           enabled: false
@@ -203,8 +203,8 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
   const FirefoxPermissionNotice = () => (
     <NoticeContainer>
       <NoticeParagraph>启用此功能：</NoticeParagraph>
-      <NoticeParagraph>1. Firefox will show a permissions request - click 'Allow'</NoticeParagraph>
-      <NoticeParagraph>2. Return to the extension and toggle the feature again</NoticeParagraph>
+      <NoticeParagraph>1. Firefox 会显示权限请求，请点击“允许”</NoticeParagraph>
+      <NoticeParagraph>2. 返回扩展，再次开启此功能</NoticeParagraph>
       <NoticeParagraph>之后你可以随时关闭此功能。</NoticeParagraph>
     </NoticeContainer>
   );

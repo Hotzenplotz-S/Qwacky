@@ -511,7 +511,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         setImportResult(`导入失败： ${result.error || '未知错误'}`);
       }
     } catch (error) {
-      setImportResult("Import failed");
+      setImportResult("导入失败");
     } finally {
       setPendingImportData(null);
       setLoading(prev => ({ ...prev, import: false }));
@@ -706,7 +706,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
                         />
                         {account.username}@duck.com
                         {account.username === currentAccount && (
-                          <SyncOptionHint>(current)</SyncOptionHint>
+                          <SyncOptionHint>（当前）</SyncOptionHint>
                         )}
                       </DropdownItem>
                     ))}
@@ -838,7 +838,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
                       />
                       {account.username}@duck.com
                       {account.username === currentAccount && (
-                        <ExportOptionHint>(current)</ExportOptionHint>
+                        <ExportOptionHint>（当前）</ExportOptionHint>
                       )}
                     </DropdownItem>
                   ))}
@@ -878,7 +878,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         isOpen={showPopoutPrompt}
         variant="info"
         title="在新窗口中打开"
-        message="Firefox doesn't allow file selection from the popup. The extension will open in a new window where you can import your backup normally."
+        message="Firefox 不允许从弹窗中选择文件。扩展会在新窗口中打开，你可以在那里正常导入备份。"
         confirmLabel="打开窗口"
         cancelLabel="取消"
         onConfirm={() => {

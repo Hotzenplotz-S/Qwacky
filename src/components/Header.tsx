@@ -239,16 +239,16 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
                 )}
                 <DropdownItem onClick={() => handleAccountItemClick(onAddAccountClick)}>
                   <MdPersonAdd size={20} />
-                  Add account
+                  添加账户
                 </DropdownItem>
                 <DropdownItem onClick={() => handleAccountItemClick(onMyAccountClick)}>
                   <MdManageAccounts size={20} />
-                  My account
+                  我的账户
                 </DropdownItem>
                 <DropdownDivider />
                 <DropdownItem onClick={handleLogoutClick} logout>
                   <MdLogout size={20} />
-                  Log out
+                  退出登录
                 </DropdownItem>
               </DropdownContent>
             </MenuDropdown>
@@ -265,11 +265,11 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
             <DropdownContent isOpen={menuDropdownOpen}>
               <DropdownItem onClick={() => handleMenuItemClick(onSettingsClick)}>
                 <MdSettings size={20} />
-                Settings
+                设置
               </DropdownItem>
               <DropdownItem onClick={() => handleMenuItemClick(onChangelogClick)}>
                 <MdNewReleases size={20} />
-                What's new?
+                更新日志
               </DropdownItem>
               <DropdownItem onClick={() => handleMenuItemClick(openSupport)}>
                 <MdFavorite size={20} />
@@ -277,7 +277,7 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
               </DropdownItem>
               <DropdownItem onClick={() => handleMenuItemClick(onAboutClick)}>
                 <MdInfoOutline size={20} />
-                About
+                关于
               </DropdownItem>
             </DropdownContent>
           </MenuDropdown>
@@ -316,15 +316,15 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
               {currentAccount && accountNicknames[currentAccount] && (
                 <NicknameButton onClick={handleClearNickname}>
                   <MdClose size={18} />
-                  Clear
+                  清除
                 </NicknameButton>
               )}
               <NicknameButton onClick={() => setShowNicknameDialog(false)}>
-                Cancel
+                取消
               </NicknameButton>
               <NicknameButton primary onClick={handleSaveNickname}>
                 <MdCheck size={18} />
-                Save
+                保存
               </NicknameButton>
             </NicknameDialogActions>
           </NicknameDialogContent>

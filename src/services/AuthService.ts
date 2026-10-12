@@ -16,7 +16,7 @@ export class AuthService {
         { headers: this.headers }
       )
       if (response.ok) {
-        return { status: 'success', needs_otp: true, message: 'OTP sent to your email!' }
+        return { status: 'success', needs_otp: true, message: '验证码已发送到你的邮箱！' }
       }
       if (response.status === 429) {
         return { status: 'error', message: '请求过于频繁，请稍候再试。' }
@@ -26,7 +26,7 @@ export class AuthService {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         return { status: 'error', message: '网络错误，请检查网络连接。' }
       }
-      return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error' }
+      return { status: 'error', message: error instanceof Error ? error.message : '未知错误' }
     }
   }
 
@@ -43,7 +43,7 @@ export class AuthService {
         return { status: 'error', message: '请求过于频繁，请稍候再试。' }
       }
       if (!loginResponse.ok) {
-        return { status: 'error', message: 'Login failed. Please try again.' }
+        return { status: 'error', message: '登录失败，请重试。' }
       }
 
       let loginData;
@@ -78,32 +78,32 @@ export class AuthService {
           message: '登录成功！'
         }
       }
-      
-      return { status: 'error', message: 'Invalid passphrase. Please check the passphrase in your email and try again.' }
+
+      return { status: 'error', message: '密码短语无效，请检查邮箱中的密码短语后重试。' }
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
         return { status: 'error', message: '网络错误，请检查网络连接。' }
       }
-      return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error' }
+      return { status: 'error', message: error instanceof Error ? error.message : '未知错误' }
     }
   }
 
   async generateAddress(token: string) {
     try {
-      const headers = { 
-        ...this.headers, 
+      const headers = {
+        ...this.headers,
         'authorization': `Bearer ${token}`,
         'content-type': 'application/json'
       }
-      
+
       const response = await fetch(
         'https://quack.duckduckgo.com/api/email/addresses',
-        { 
+        {
           method: 'POST',
           headers
         }
       )
-      
+
       if (response.status === 401 || response.status === 403) {
         return { status: 'error', message: '会话已过期，请重新登录。' }
       }
@@ -111,9 +111,9 @@ export class AuthService {
         return { status: 'error', message: 'DuckDuckGo 限制了请求频率，请稍后再试。' }
       }
       if (!response.ok) {
-        return { status: 'error', message: `DuckDuckGo returned error ${response.status}` }
+        return { status: 'error', message: `DuckDuckGo 返回错误 ${response.status}` }
       }
-      
+
       let data;
       try {
         data = await response.json();
@@ -121,17 +121,17 @@ export class AuthService {
         return { status: 'error', message: '服务器返回了无效响应。' };
       }
       if (data.address) {
-        return { 
-          status: 'success', 
-          address: data.address 
+        return {
+          status: 'success',
+          address: data.address
         }
       }
       throw new Error('Invalid response format')
     } catch (error) {
-      return { 
-        status: 'error', 
-        message: error instanceof Error ? error.message : 'Unknown error' 
+      return {
+        status: 'error',
+        message: error instanceof Error ? error.message : '未知错误'
       }
     }
   }
-} 
+}

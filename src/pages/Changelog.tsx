@@ -18,10 +18,10 @@ export const Changelog = ({ onBack }: ChangelogProps) => {
       try {
         const response = await fetch(chrome.runtime.getURL('CHANGELOG.md'));
         if (!response.ok) {
-          throw new Error('Failed to load changelog');
+          throw new Error('无法加载更新日志');
         }
         const text = await response.text();
-        setChangelog(text.replace(/^# Changelog$/m, "# What's new?"));
+        setChangelog(text.replace(/^# Changelog$/m, "# 更新日志"));
       } catch (err) {
         console.error('Error loading changelog:', err);
         setError('无法加载更新日志，请稍后再试');
@@ -37,7 +37,7 @@ export const Changelog = ({ onBack }: ChangelogProps) => {
     <ChangelogContainer>
       <BackButton onClick={onBack}>
         <MdArrowBack size={20} />
-        Back to Dashboard
+        返回控制面板
       </BackButton>
 
       {loading && <ChangelogLoadingMessage>正在加载更新日志……</ChangelogLoadingMessage>}

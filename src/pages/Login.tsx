@@ -139,7 +139,7 @@ export const Login = ({ onSubmit, isAddingAccount, onBack }: LoginProps) => {
         isOpen={showSignupDialog}
         variant="info"
         title="创建 Duck 地址"
-        message="You'll be redirected to DuckDuckGo to create your @duck.com address. Once you complete the signup, you'll be automatically logged in."
+        message="你将跳转到 DuckDuckGo 创建 @duck.com 地址。完成注册后，系统会自动登录。"
         confirmLabel="继续前往 DuckDuckGo"
         cancelLabel="取消"
         onConfirm={handleSignupConfirm}

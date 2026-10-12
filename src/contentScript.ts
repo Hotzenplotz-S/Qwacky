@@ -165,12 +165,12 @@ if (!(window as unknown as { __qwackyContentScript?: boolean }).__qwackyContentS
 
       if (!filled) {
         showNotification(copied
-          ? 'Could not fill input, address copied to clipboard'
-          : 'Could not fill input or copy to clipboard. Please check permissions in settings.');
+          ? '无法填充输入框，地址已复制到剪贴板'
+          : '无法填充输入框或复制到剪贴板，请检查设置中的权限。');
       } else {
         showNotification(copied
-          ? 'Address filled and copied to clipboard'
-          : 'Address filled but could not copy to clipboard. Please check permissions in settings.');
+          ? '地址已填充并复制到剪贴板'
+          : '地址已填充，但无法复制到剪贴板，请检查设置中的权限。');
       }
     }
 
@@ -180,12 +180,12 @@ if (!(window as unknown as { __qwackyContentScript?: boolean }).__qwackyContentS
 
       if (!replaced) {
         showNotification(copied
-          ? 'Could not replace selection, address copied to clipboard'
-          : 'Could not replace selection or copy to clipboard. Please check permissions in settings.');
+          ? '无法替换选中文本，地址已复制到剪贴板'
+          : '无法替换选中文本或复制到剪贴板，请检查设置中的权限。');
       } else {
         showNotification(copied
-          ? 'Converted and copied to clipboard'
-          : 'Converted, but could not copy to clipboard. Please check permissions in settings.');
+          ? '已转换并复制到剪贴板'
+          : '已完成转换，但无法复制到剪贴板，请检查设置中的权限。');
       }
     }
 

@@ -339,7 +339,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
         const dashboardResponse = await fetch('https://quack.duckduckgo.com/api/email/dashboard', { headers })
         if (!dashboardResponse.ok) {
-          await api.storage.local.set({ auto_login_error: 'Failed to load dashboard data. Please log in manually.' })
+          await api.storage.local.set({ auto_login_error: '无法加载账户数据，请手动登录。' })
           sendResponse({ status: 'error', message: '加载控制面板数据失败。' })
           return
         }
@@ -347,7 +347,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         const dashboardData = await dashboardResponse.json()
         if (!dashboardData?.user) {
           await api.storage.local.set({ auto_login_error: 'Invalid response from server. Please log in manually.' })
-          sendResponse({ status: 'error', message: 'Invalid dashboard data.' })
+          sendResponse({ status: 'error', message: '账户数据无效。' })
           return
         }
 
@@ -357,8 +357,8 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
         const resolvedUsername = dashboardData.user.username || username
         if (!resolvedUsername) {
-          await api.storage.local.set({ auto_login_error: 'Could not determine username. Please log in manually.' })
-          sendResponse({ status: 'error', message: 'Could not determine username.' })
+          await api.storage.local.set({ auto_login_error: '无法确定用户名，请手动登录。' })
+          sendResponse({ status: 'error', message: '无法确定用户名。' })
           return
         }
 
@@ -367,7 +367,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
         const existing = accounts.find(acc => acc.username === resolvedUsername)
         if (existing && result.currentAccount === resolvedUsername) {
-          sendResponse({ status: 'success', message: 'Already logged in.' })
+          sendResponse({ status: 'success', message: '已经登录。' })
           return
         }
 
@@ -395,7 +395,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
         sendResponse({ status: 'success' })
       } catch (err) {
-        await api.storage.local.set({ auto_login_error: 'Auto-login failed. Please log in manually.' })
+        await api.storage.local.set({ auto_login_error: '自动登录失败，请手动登录。' })
         sendResponse({ status: 'error', message: errorMessage(err) })
       }
     })()

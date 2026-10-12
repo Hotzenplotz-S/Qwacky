@@ -45,7 +45,7 @@ export const PERMISSIONS: Record<PermissionType, Permission> = {
   },
   contextMenu: {
     name: '上下文菜单',
-    description: '`contextMenus`\nFirefox requires this permission to be listed in the manifest\'s permissions block at install time, [Read More](https://github.com/Lanshuns/Qwacky/blob/main/PRIVACY.md#permissions)',
+    description: '`contextMenus`\nFirefox 要求在安装时将此权限列入清单的 permissions 部分，[阅读更多](https://github.com/Lanshuns/Qwacky/blob/main/PRIVACY.md#permissions)',
     isRequired: true,
     permissions: ['contextMenus']
   },

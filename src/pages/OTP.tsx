@@ -97,11 +97,11 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
               await chrome.storage.local.remove(['otp_verification_in_progress']);
             } catch (error) {
               console.error('Error switching account:', error);
-              setError('Failed to switch to new account');
+              setError('切换到新账户失败');
               await chrome.storage.local.remove(['otp_verification_in_progress']);
             }
           } else {
-            setError('Failed to get user data');
+            setError('获取账户数据失败');
             await chrome.storage.local.remove(['otp_verification_in_progress']);
           }
         } else if (response.dashboard) {
@@ -112,7 +112,7 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
           }
         }
       } else {
-        setError(response.message || 'Failed to verify OTP');
+        setError(response.message || '验证码验证失败');
         await chrome.storage.local.remove(['otp_verification_in_progress']);
       }
     } catch (error) {

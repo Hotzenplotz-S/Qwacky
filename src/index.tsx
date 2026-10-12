@@ -7,7 +7,7 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 
 const container = document.getElementById('root')
 if (!container) {
-  throw new Error('Failed to find the root element')
+  throw new Error('无法找到根元素')
 }
 
 createRoot(container).render(

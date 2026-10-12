@@ -53,7 +53,7 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
           <ErrorTitle>出了点问题</ErrorTitle>
           <ErrorMessage>扩展遇到了意外错误。</ErrorMessage>
           <ReloadButton onClick={() => window.location.reload()}>
-            Reload Extension
+            重新加载扩展
           </ReloadButton>
         </ErrorContainer>
       )

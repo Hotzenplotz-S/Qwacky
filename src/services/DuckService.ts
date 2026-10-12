@@ -7,7 +7,7 @@ export class DuckService {
   private auth: AuthService
   private storage: StorageService
   private importExport: ImportExportService
-  
+
   constructor() {
     this.auth = new AuthService()
     this.storage = new StorageService()
@@ -19,14 +19,14 @@ export class DuckService {
       if (!username || typeof username !== 'string' || username.trim() === '') {
         return { status: 'error', message: '必须填写用户名' }
       }
-      
+
       const response = await this.auth.requestOTP(username)
       return response
     } catch (error: unknown) {
       console.error('Login error:', error)
-      return { 
-        status: 'error', 
-        message: error instanceof Error ? error.message : 'An unexpected error occurred during login' 
+      return {
+        status: 'error',
+        message: error instanceof Error ? error.message : '登录时发生意外错误'
       }
     }
   }
@@ -36,15 +36,15 @@ export class DuckService {
       if (!username || typeof username !== 'string' || username.trim() === '') {
         return { status: 'error', message: '必须填写用户名' }
       }
-      
+
       if (!otp || typeof otp !== 'string' || otp.trim() === '') {
         return { status: 'error', message: '必须填写一次性密码' }
       }
-      
+
       const response = await this.auth.verifyOTP(username, otp)
       if (response.status === 'success' && response.dashboard) {
         await this.storage.saveUserData(response)
-        
+
         if (response.dashboard.user && !response.dashboard.user.username) {
           response.dashboard.user.username = username
         }
@@ -53,9 +53,9 @@ export class DuckService {
       return response
     } catch (error: unknown) {
       console.error('OTP verification error:', error)
-      return { 
-        status: 'error', 
-        message: error instanceof Error ? error.message : 'An unexpected error occurred during verification' 
+      return {
+        status: 'error',
+        message: error instanceof Error ? error.message : '验证时发生意外错误'
       }
     }
   }
@@ -66,17 +66,17 @@ export class DuckService {
       if (!userData) {
         return { status: 'error', message: '请先登录' }
       }
-      
+
       if (!userData.user || !userData.user.access_token) {
         return { status: 'error', message: '用户数据无效，请重新登录。' }
       }
-      
+
       const response = await this.auth.generateAddress(userData.user.access_token)
       if (response.status === 'success') {
         if (!response.address) {
           return { status: 'error', message: '服务器未返回地址' }
         }
-        
+
         const neverSave = await this.storage.getNeverSaveAddresses()
         if (!neverSave) {
           await this.storage.saveGeneratedAddress(response.address, notes, source)
@@ -90,8 +90,8 @@ export class DuckService {
       return response
     } catch (error: unknown) {
       console.error('Error generating address:', error)
-      return { 
-        status: 'error', 
+      return {
+        status: 'error',
         message: error instanceof Error ? error.message : '生成地址时发生未知错误'
       }
     }
@@ -121,8 +121,8 @@ export class DuckService {
       return { success: true }
     } catch (error: unknown) {
       console.error('Error during logout:', error)
-      return { 
-        success: false, 
+      return {
+        success: false,
         message: error instanceof Error ? error.message : '退出登录时发生未知错误'
       }
     }
@@ -143,7 +143,7 @@ export class DuckService {
         console.error('Cannot update notes: Address value is required')
         return false
       }
-      
+
       return await this.storage.updateAddressNotes(addressValue, notes)
     } catch (error: unknown) {
       console.error('Error updating address notes:', error)
@@ -171,7 +171,7 @@ export class DuckService {
         console.error('Cannot delete address: Address value is required')
         return false
       }
-      
+
       return await this.storage.deleteAddress(addressValue)
     } catch (error: unknown) {
       console.error('Error deleting address:', error)
@@ -198,7 +198,7 @@ export class DuckService {
         count: 0,
         duplicates: 0,
         invalid: 0,
-        error: error instanceof Error ? error.message : 'Unknown error importing addresses'
+        error: error instanceof Error ? error.message : '导入地址时发生未知错误'
       }
     }
   }
@@ -213,7 +213,7 @@ export class DuckService {
         count: 0,
         duplicates: 0,
         invalid: 0,
-        error: error instanceof Error ? error.message : 'Unknown error importing addresses'
+        error: error instanceof Error ? error.message : '导入地址时发生未知错误'
       }
     }
   }
@@ -283,7 +283,7 @@ export class DuckService {
       return await this.importExport.exportBackup(selectedAccounts, includeSession)
     } catch (error: unknown) {
       console.error('Error exporting backup:', error)
-      throw new Error(error instanceof Error ? error.message : 'Failed to export backup')
+      throw new Error(error instanceof Error ? error.message : '导出备份失败')
     }
   }
 
@@ -295,7 +295,7 @@ export class DuckService {
       return {
         success: false,
         hasSession: false,
-        error: error instanceof Error ? error.message : 'Unknown error importing backup'
+        error: error instanceof Error ? error.message : '导入备份时发生未知错误'
       }
     }
   }

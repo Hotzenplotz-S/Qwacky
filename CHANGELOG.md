@@ -1,133 +1,152 @@
-# Changelog
+# 更新日志
 
 ## 3.0.0
 
-### Added
-- **Home tab** - the popup now opens on Home: the generate button, your latest address, and usage statistics computed on your device, such as addresses over time, the tags you use most, send addresses, and how many came from the right-click menu or the shortcut. The latest address card and the statistics can each be turned off in Settings
-- **Account menu** - an avatar next to the menu button holds your accounts, Add account, My account and Log out. Pick a colour per account so you can tell them apart at a glance
-- **Compact mode** - a denser layout across the whole popup, in Settings > Appearance
-- **History toggle** - turn off address history under Permissions & features and new addresses and send addresses are only copied to the clipboard, nothing is stored on the device (contributed by [uacat](https://codeberg.org/uacat/) on Codeberg)
-- **Generating indicator** - a spinner shows on the page while the right-click menu or the keyboard shortcut generates an address, so you know it is working (contributed by [@evil1morty](https://github.com/evil1morty))
+### 新增
 
-### Fixed
-- **Silent generate failures** - the popup now tells you why DuckDuckGo rejected a request (expired session, rate limit, or the error code) instead of doing nothing
-- **Imported addresses disappearing** - addresses restored from a .txt list or a backup are written to sync as well, so they no longer vanish when sync is on
-- **Sync losing changes** - with sync on, changes now reach sync straight away instead of two seconds later, so closing the popup right after an edit or import, adding two tags in a row, or generating twice quickly no longer drops a change, and tags and notes show up as soon as you save them
-- **duckduckgo.com generator** - the Private Duck Address generator on duckduckgo.com/email shows again while signed in through Qwacky
-- **Popup width** - the popup no longer grows a few pixels wider on tabs that scroll
-- **Firefox for Android** - the Autofill toggle is disabled with an explanation instead of appearing to work, since Firefox for Android has no extension context menus or keyboard shortcuts
-- **Button contrast** - orange buttons use dark text so the label is readable
-- **Changelog links** - links in What's new use the accent colour instead of the browser default
+- **首页**：弹窗现在默认打开首页，提供生成按钮、最新地址和本地统计，包括地址趋势、常用标签、发送地址，以及通过右键菜单或快捷键生成的数量。最新地址卡片和统计信息都可以在设置中关闭。
+- **账户菜单**：菜单按钮旁新增账户头像，可访问账户列表、添加账户、我的账户和退出登录。每个账户都可以选择不同颜色。
+- **紧凑模式**：在设置 → 外观中启用更紧凑的弹窗布局。
+- **历史记录开关**：在设置 → 权限与功能中关闭历史记录后，新地址和发送地址只会复制到剪贴板，不会保存在设备上。
+- **生成指示器**：通过右键菜单或快捷键生成地址时，页面会显示加载指示器。
 
-### Changed
-- **Three tabs** - Home, Addresses and Send. The address list moved from the old Generate tab to Addresses, and the lists are titled Address history and Send history
-- **Tighter list items** - the tag, edit and delete buttons sit in the title row and the notes line only shows when there are notes, so each item takes noticeably less space (suggested in #26)
-- **Tags** - tags keep the capitals you type, the tag filter wraps onto new lines instead of scrolling sideways, and turning on Group starts with every group collapsed (suggested on the Privacy Guides forum)
-- **Firefox 128 or newer** - the minimum Firefox version is now 128 on desktop and Android, which the duckduckgo.com sign-in bridge requires
+### 修复
+
+- **生成失败无提示**：现在会显示 DuckDuckGo 拒绝请求的原因，例如会话过期、请求过于频繁或错误代码。
+- **导入地址消失**：从文本文件或备份恢复的地址现在也会写入同步数据。
+- **同步丢失修改**：同步开启时，编辑、导入、连续添加标签或快速生成地址的修改会立即同步。
+- **DuckDuckGo 地址生成器**：通过 Qwacky 登录后，`duckduckgo.com/email` 中的私密 Duck 地址生成器可以正常显示。
+- **弹窗宽度**：修复可滚动页面导致弹窗宽度增加的问题。
+- **Firefox Android**：不支持上下文菜单或键盘快捷键时，自动填充开关会正确禁用并显示说明。
+- **按钮对比度**：橙色按钮改用深色文字，提高可读性。
+- **更新日志链接**：更新日志中的链接现在使用主题强调色。
+
+### 变更
+
+- **三个页面**：页面分为首页、地址和发送，地址列表从旧的生成页面移至地址页面，并分别显示地址历史和发送历史。
+- **更紧凑的列表项**：标签、编辑和删除按钮移至标题行；没有备注时不显示备注行。
+- **标签**：保留用户输入的大小写；标签筛选会换行；启用分组后默认折叠所有分组。
+- **Firefox 128 或更高版本**：桌面版和 Android 版最低要求均调整为 Firefox 128。
 
 ## 2.1.0
 
-### Added
-- **Convert to send address** - turn a selected recipient into a reverse alias straight from the right-click menu or with a keyboard shortcut (Alt+Shift+S)
-- **Delete your Duck account** - you can now delete your DuckDuckGo account directly from Qwacky
-- **Remove account local data** - delete an account's saved addresses and reverse aliases from this device and from sync, without touching your DuckDuckGo account
-- **Appearance settings** - pick a light, dark, or system theme and switch between 12-hour and 24-hour time
-- **Import from a text file** - bulk-import existing @duck.com addresses from a plain .txt list, one per line
+### 新增
 
-### Fixed
-- **DuckDuckGo sign-in** - logging in at duckduckgo.com/email no longer gets stuck when Qwacky is installed
-- **Firefox references** - Firefox builds now point to Firefox Add-ons and describe sync storage correctly instead of showing Chrome and Google
-- **Support link** - the heart icon and About page now open the correct readme section
+- **转换为发送地址**：通过右键菜单或快捷键 `Alt+Shift+S` 将选中的收件人转换为反向别名。
+- **删除 Duck 账户**：可以直接从 Qwacky 删除 DuckDuckGo 账户。
+- **移除账户本地数据**：从本设备和同步数据中删除账户保存的地址及反向别名，不影响 DuckDuckGo 账户本身。
+- **外观设置**：选择浅色、深色或系统主题，并切换 12 小时制和 24 小时制。
+- **从文本文件导入**：从每行一个地址的 `.txt` 文件批量导入已有的 `@duck.com` 地址。
 
-### Changed
-- **Manage your Duck account** - the "Change forwarding address" button is now "Manage your Duck account", where you can change your forwarding address or delete your account
-- **Theme moved to settings** - the theme picker lives in the new Appearance section instead of the header
+### 修复
+
+- **DuckDuckGo 登录**：安装 Qwacky 后，在 `duckduckgo.com/email` 登录不再卡住。
+- **Firefox 说明**：Firefox 构建现在指向 Firefox 附加组件，并正确描述同步存储。
+- **支持链接**：心形图标和关于页面现在打开正确的项目说明位置。
+
+### 变更
+
+- **管理 Duck 账户**：原“更改转发地址”按钮改为“管理 Duck 账户”，可以更改转发地址或删除账户。
+- **主题移至设置**：主题选择器移至新的外观设置区域。
 
 ## 2.0.0
 
-### Added
-- **Send** - convert any email into a reverse alias to send emails privately from your @duck.com address, with history and notes
-- **Tags** - organize addresses and reverse aliases with custom tags, filter by tag, group by tag, or view "Untagged"
-- **Auto-Login** - automatically log in after you sign up in Qwacky
-- **Firefox for Android support** - the extension now works on Firefox for Android ([#12](https://github.com/Lanshuns/Qwacky/pull/12) by [@Meterel](https://github.com/Meterel))
-- **My Account page** - view your profile, email stats, and manage your forwarding address
-- **About page** - version info, store links, and support the project
-- **Popout window** - open Qwacky in a standalone window from the popup
-- **Session sync** - restore your accounts on another device through cross-device sync
-- **Granular sync options** - choose what to sync: addresses, reverse aliases, session data, and which accounts
-- **Selective backup** - choose which accounts to include when exporting
+### 新增
 
-### Fixed
-- Popup layout centered properly on Android/fullscreen ([#12](https://github.com/Lanshuns/Qwacky/pull/12) by [@Meterel](https://github.com/Meterel))
-- Sync no longer crashes in the background when saving theme preferences
-- Clipboard copy now shows an error instead of silently failing
-- Pending sync writes are saved before the extension suspends, preventing data loss
+- **发送**：将任意邮箱转换为反向别名，从 `@duck.com` 地址私密发送邮件，并保存历史和备注。
+- **标签**：为地址和反向别名添加自定义标签，按标签筛选、分组或查看未标记项目。
+- **自动登录**：注册 Qwacky 后自动登录。
+- **Firefox Android 支持**：扩展现在支持 Firefox Android。
+- **我的账户页面**：查看个人资料、邮箱统计和转发地址。
+- **关于页面**：查看版本信息、商店链接和项目支持方式。
+- **弹出窗口**：从弹窗中在独立窗口打开 Qwacky。
+- **会话同步**：通过跨设备同步在其他设备恢复账户。
+- **细分同步选项**：选择同步地址、反向别名、会话数据以及账户范围。
+- **选择性备份**：导出时选择要包含的账户。
 
-### Changed
-- Popup width increased from 360px to 400px
-- CSV export removed - JSON backup now includes everything (addresses, reverse aliases, notes, tags, session data)
-- Redesigned theme with glass effects, improved shadows, and refined colors
-- Improved error handling and validation across the board
+### 修复
+
+- Android / 全屏模式下弹窗布局居中问题。
+- 保存主题偏好时后台同步崩溃问题。
+- 剪贴板复制失败时静默无提示问题。
+- 扩展挂起前未保存待同步数据导致的数据丢失问题。
+
+### 变更
+
+- 弹窗宽度从 360px 增加到 400px。
+- 移除 CSV 导出，JSON 备份现在包含地址、反向别名、备注、标签和会话数据。
+- 重新设计主题，改进玻璃效果、阴影和颜色。
+- 全面改进错误处理和数据校验。
 
 ## 1.2.1
 
-### Added
-- Cross-device sync (Experimental)
-- Generate address using keyboard shortcut (Alt+Shift+Q)
-- Sign up page
-- Search & filter addresses and notes
-- Account nickname customization
+### 新增
 
-### Improved
-- UI enhancements and redesigned settings page
-- Performance optimizations with session storage caching (20x faster reads)
-- Gzip compression for 3-5x storage capacity
-- Timestamp-based conflict resolution for sync
-- Enter key for saving notes
-- Auto-focus on note editing
+- 跨设备同步（实验性功能）。
+- 使用快捷键 `Alt+Shift+Q` 生成地址。
+- 注册页面。
+- 搜索和筛选地址及备注。
+- 账户昵称自定义。
+
+### 改进
+
+- 改进界面并重新设计设置页面。
+- 使用会话存储缓存提升读取性能。
+- 使用 Gzip 压缩提高存储容量。
+- 基于时间戳解决同步冲突。
+- 支持使用回车键保存备注。
+- 编辑备注时自动聚焦。
 
 ## 1.2.0
 
-### Added
-- Clear all addresses button
-- Menu for switching between multiple accounts
-- Permissions section in the settings
-- Toggle controls for optional permissions
+### 新增
 
-### Changed
-- Remove extra spaces when pasting during login
-- Remove special characters and spaces in the login input
+- 清除全部地址按钮。
+- 在多个账户之间切换的菜单。
+- 设置中的权限区域。
+- 可选权限开关。
 
-### Improved
-- Various UI enhancements
-- Enhanced privacy by limiting permissions in the manifest file to only required domains
-- Updated manifest to explicitly declare all required permissions for better transparency
-- Added secure defaults for optional permissions
+### 变更
 
-### Fixed
-- Popup closes in Firefox when trying to import backup address, by making it uses paste the address instead
+- 登录时粘贴内容会自动移除多余空格。
+- 登录输入会自动移除特殊字符和空格。
+
+### 改进
+
+- 多项界面优化。
+- 通过限制 Manifest 中的域名权限进一步增强隐私。
+- 明确声明所需权限，提高透明度。
+- 为可选权限增加安全默认值。
+
+### 修复
+
+- 修复 Firefox 导入备份地址时弹窗关闭的问题。
 
 ## 1.1.0
 
-### Added
-- Multiple accounts support
-- System color theme detection
-- Notes for each generated address
-- Auto-save website domain in notes when generating address from context menu
-- Address deletion functionality
-- Export/import functionality (CSV & JSON) for backing up generated addresses with notes
-- Confirmation dialogs before logout and address deletion
-- Build number management
-- Changelog popup and menu entry
+### 新增
 
-### Fixed
-- Various bug fixes and code improvements
+- 多账户支持。
+- 系统颜色主题检测。
+- 为每个生成的地址添加备注。
+- 从右键菜单生成地址时自动将网站域名写入备注。
+- 地址删除功能。
+- 使用 CSV 和 JSON 导出 / 导入生成地址及备注。
+- 退出登录和删除地址前显示确认对话框。
+- 构建编号管理。
+- 更新日志弹窗和菜单入口。
+
+### 修复
+
+- 多项错误修复和代码改进。
 
 ## 1.0.1
 
-### Changed
-- Added cross-browser support 
-- Updated build configuration
+### 变更
+
+- 增加跨浏览器支持。
+- 更新构建配置。
 
 ## 1.0.0
-- Initial release of the extension
+
+- 扩展首次发布。

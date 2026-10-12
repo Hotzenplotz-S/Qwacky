@@ -327,7 +327,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteCurrentAccount = async () => {
     if (!currentAccount) {
-      return { status: 'error' as const, message: 'No account is currently selected' }
+      return { status: 'error' as const, message: '当前未选择账户' }
     }
 
     const result = await duckService.deleteAccount(currentAccount)

@@ -1,45 +1,45 @@
-# Privacy Policy
+# 隐私政策
 
-Last updated: September 23, 2026
+最后更新：2026 年 9 月 23 日
 
-Qwacky is a browser extension for managing DuckDuckGo Email Protection addresses. It has no servers of its own, no analytics and no tracking. This page explains what the extension stores and who it talks to.
+Qwacky 是用于管理 DuckDuckGo Email Protection 地址的浏览器扩展。Qwacky 没有自己的服务器，不包含分析或跟踪功能。本页面说明扩展会保存哪些内容，以及会与哪些服务通信。
 
-## What Qwacky stores
+## Qwacky 保存的内容
 
-Everything below is kept in your browser's extension storage on your device:
+以下内容均保存在你设备上的浏览器扩展存储中：
 
-- Your Duck username and the access token DuckDuckGo issues when you sign in
-- The addresses and send addresses you create, with any notes and tags you add
-- Your settings, such as theme, time format, compact mode and account colours
+- 你的 Duck 用户名，以及登录时由 DuckDuckGo 签发的访问令牌；
+- 你创建的地址和发送地址，以及你添加的备注和标签；
+- 你的设置，例如主题、时间格式、紧凑模式和账户颜色。
 
-The statistics on the Home tab are calculated from this data on your device. Nothing is sent anywhere to produce them.
+首页中的统计数据根据上述内容在你的设备上计算，不会为了生成统计而发送到任何地方。
 
-If you turn off History in Settings, new addresses and send addresses are copied to your clipboard only and are not stored.
+如果你在设置中关闭历史记录，新生成的地址和发送地址只会复制到剪贴板，不会保存。
 
-## Who Qwacky talks to
+## Qwacky 会与哪些服务通信
 
-- **DuckDuckGo** (`quack.duckduckgo.com`): to sign you in, generate addresses and read your account details. These requests are covered by [DuckDuckGo's privacy policy](https://duckduckgo.com/privacy).
-- **Your browser's sync service**, only if you turn on sync in Settings. Your data is then stored in your Google or Mozilla account through the browser's own sync, and you choose what is included. Firefox encrypts synced data end to end. Chrome does so only if you set a sync passphrase.
+- **DuckDuckGo**（`quack.duckduckgo.com`）：用于登录、生成地址和读取账户信息。相关请求受 [DuckDuckGo 隐私政策](https://duckduckgo.com/privacy)约束。
+- **浏览器同步服务**：只有在你开启设置中的同步后才会使用。数据会通过浏览器自身的同步功能保存到你的 Google 或 Mozilla 账户中，你可以选择同步哪些内容。Firefox 会对同步数据进行端到端加密；Chrome 只有在你设置同步密码时才会进行相应加密。
 
-Qwacky makes no other network requests. It does not collect, sell or share any data, and the developer never receives any of it.
+除此之外，Qwacky 不会发起其他网络请求。Qwacky 不会收集、出售或共享任何数据，开发者也不会接收到你的数据。
 
-## Permissions
+## 权限说明
 
-- **Storage**: to keep the data listed above
-- **quack.duckduckgo.com**: the only site Qwacky connects to
-- **duckduckgo.com/email**: lets you sign in there using your Qwacky session
-- **Context menu, active tab, scripting and clipboard** (optional, off until you enable autofill): to fill an address into the page you are on when you use the right-click menu or the keyboard shortcut, and to copy it
+- **存储**：保存上文所列的数据；
+- **`quack.duckduckgo.com`**：Qwacky 连接的唯一服务站点；
+- **`duckduckgo.com/email`**：使用 Qwacky 会话在 DuckDuckGo 页面中登录；
+- **上下文菜单、当前标签页、脚本和剪贴板**：这些权限为可选权限，只有在你启用自动填充后才会使用，用于在当前页面通过右键菜单或键盘快捷键填充地址，以及复制地址。
 
-On Firefox the context menu permission has to be granted at install, because Firefox does not allow it as an optional permission.
+在 Firefox 中，上下文菜单权限必须在安装时授予，因为 Firefox 不允许将其作为可选权限。
 
-## Removing your data
+## 删除你的数据
 
-Use "Remove account local data" on the My Account page to delete an account's data from the device and from sync. Uninstalling the extension deletes everything it stored locally.
+在“我的账户”页面使用**移除账户本地数据**，可以从设备和同步数据中删除某个账户的数据。卸载扩展会删除扩展保存在本地的全部内容。
 
-## Changes
+## 政策变更
 
-Changes to this policy are published in this file, and its history is visible on [GitHub](https://github.com/Lanshuns/Qwacky/commits/main/PRIVACY.md).
+本政策的变更会发布在此文件中，历史记录可在 [GitHub](https://github.com/Lanshuns/Qwacky/commits/main/PRIVACY.md) 查看。
 
-## Contact
+## 联系方式
 
-Questions can be asked by opening an issue on [GitHub](https://github.com/Lanshuns/Qwacky/issues).
+如有疑问，请在 [GitHub](https://github.com/Lanshuns/Qwacky/issues) 提交问题。

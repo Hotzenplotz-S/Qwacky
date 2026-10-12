@@ -48,7 +48,7 @@ const isFirefoxPopup = isFirefox && !window.location.search.includes('popout=1')
 
 const describeAddressImport = (result: ImportAddressesResult): string => {
   if (!result.success) {
-    return `Import failed: ${result.error || 'Unknown error'}`;
+    return `导入失败： ${result.error || '未知错误'}`;
   }
 
   const notes: string[] = [];
@@ -68,9 +68,9 @@ const describeAddressImport = (result: ImportAddressesResult): string => {
 };
 
 const THEME_OPTIONS: Array<{ mode: ThemeMode; icon: typeof MdLightMode; label: string }> = [
-  { mode: 'light', icon: MdLightMode, label: 'Light' },
-  { mode: 'dark', icon: MdDarkMode, label: 'Dark' },
-  { mode: 'system', icon: MdDevices, label: 'System' },
+  { mode: 'light', icon: MdLightMode, label: '浅色' },
+  { mode: 'dark', icon: MdDarkMode, label: '深色' },
+  { mode: 'system', icon: MdDevices, label: '跟随系统' },
 ];
 
 interface SettingsProps {
@@ -168,10 +168,10 @@ export const Settings = ({ onBack }: SettingsProps) => {
   };
 
   const getDropdownLabel = () => {
-    if (selectedAccounts.length === 0) return 'Select accounts...';
-    if (selectedAccounts.length === accounts.length) return 'All accounts';
+    if (selectedAccounts.length === 0) return '选择账户……';
+    if (selectedAccounts.length === accounts.length) return '所有账户';
     if (selectedAccounts.length === 1) return `${selectedAccounts[0]}@duck.com`;
-    return `${selectedAccounts.length} accounts selected`;
+    return `${selectedAccounts.length} 个账户已选择`;
   };
 
   useEffect(() => {
@@ -275,9 +275,9 @@ export const Settings = ({ onBack }: SettingsProps) => {
   };
 
   const getSyncAccountLabel = () => {
-    if (syncOptions.syncAccounts.length === 0) return 'All accounts';
+    if (syncOptions.syncAccounts.length === 0) return '所有账户';
     if (syncOptions.syncAccounts.length === 1) return `${syncOptions.syncAccounts[0]}@duck.com`;
-    return `${syncOptions.syncAccounts.length} accounts selected`;
+    return `${syncOptions.syncAccounts.length} 个账户已选择`;
   };
 
   const isAccountSyncSelected = (username: string) => {
@@ -362,32 +362,32 @@ export const Settings = ({ onBack }: SettingsProps) => {
     const lines: string[] = [];
 
     if (s.action === 'export') {
-      lines.push(`Accounts: ${s.accounts.map(a => a.username + '@duck.com').join(', ')}`);
-      lines.push(`Addresses: ${s.totalAddresses}`);
-      lines.push(`Send addresses: ${s.totalReverseAliases}`);
-      if (s.includesSession) lines.push(`Session data: included`);
+      lines.push(`账户： ${s.accounts.map(a => a.username + '@duck.com').join(', ')}`);
+      lines.push(`地址： ${s.totalAddresses}`);
+      lines.push(`发送地址： ${s.totalReverseAliases}`);
+      if (s.includesSession) lines.push(`会话数据：已包含`);
     } else {
       if (s.newAccounts && s.newAccounts > 0) {
-        lines.push(`New accounts added: ${s.newAccounts}`);
+        lines.push(`新增账户： ${s.newAccounts}`);
       }
       for (const a of s.accounts) {
         const parts: string[] = [];
-        if (a.addresses > 0) parts.push(`${a.addresses} addresses`);
-        if (a.reverseAliases > 0) parts.push(`${a.reverseAliases} send addresses`);
+        if (a.addresses > 0) parts.push(`${a.addresses} 地址`);
+        if (a.reverseAliases > 0) parts.push(`${a.reverseAliases} send 地址`);
         if (parts.length > 0) {
           lines.push(`${a.username}@duck.com: +${parts.join(', ')}`);
         }
       }
       if ((s.skippedAddresses || 0) > 0 || (s.skippedReverseAliases || 0) > 0) {
         const skipped: string[] = [];
-        if (s.skippedAddresses) skipped.push(`${s.skippedAddresses} addresses`);
-        if (s.skippedReverseAliases) skipped.push(`${s.skippedReverseAliases} send addresses`);
-        lines.push(`Skipped (already exist): ${skipped.join(', ')}`);
+        if (s.skippedAddresses) skipped.push(`${s.skippedAddresses} 地址`);
+        if (s.skippedReverseAliases) skipped.push(`${s.skippedReverseAliases} send 地址`);
+        lines.push(`已跳过（已存在）： ${skipped.join(', ')}`);
       }
       if (s.newAddresses === 0 && s.newReverseAliases === 0 && (!s.newAccounts || s.newAccounts === 0)) {
-        lines.push('Everything was already up to date.');
+        lines.push('所有内容已经是最新状态。');
       }
-      if (s.includesSession) lines.push(`Session data: restored`);
+      if (s.includesSession) lines.push(`会话数据：已恢复`);
     }
 
     return lines.join('\n');
@@ -425,8 +425,8 @@ export const Settings = ({ onBack }: SettingsProps) => {
       }
       setBackupSummary(summary);
     } catch (error) {
-      console.error("Failed to export backup:", error);
-      setImportResult("Failed to export backup");
+      console.error("导出备份失败:", error);
+      setImportResult("导出备份失败");
     } finally {
       setLoading(prev => ({ ...prev, export: false }));
     }
@@ -440,7 +440,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
       const text = await file.text();
       await processImport(text);
     } catch (error) {
-      setImportResult("Import failed, invalid file");
+      setImportResult("导入失败，文件无效");
     } finally {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -472,7 +472,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         if (result.success && result.summary) {
           setBackupSummary(result.summary);
         } else {
-          setImportResult(`Import failed: ${result.error || 'Unknown error'}`);
+          setImportResult(`导入失败： ${result.error || '未知错误'}`);
         }
         setLoading(prev => ({ ...prev, import: false }));
         return;
@@ -486,7 +486,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         return;
       }
 
-      setImportResult("Unrecognized file format");
+      setImportResult("无法识别的文件格式");
     } catch {
       setLoading(prev => ({ ...prev, import: true }));
       const result = await duckService.importAddressList(text);
@@ -508,7 +508,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
       if (result.success && result.summary) {
         setBackupSummary(result.summary);
       } else if (!result.success) {
-        setImportResult(`Import failed: ${result.error || 'Unknown error'}`);
+        setImportResult(`导入失败： ${result.error || '未知错误'}`);
       }
     } catch (error) {
       setImportResult("Import failed");
@@ -566,9 +566,9 @@ export const Settings = ({ onBack }: SettingsProps) => {
       )}
       <Section>
         <SectionHeader>
-          <h2><MdPalette size={20} style={{ marginRight: '8px' }} />Appearance</h2>
+          <h2><MdPalette size={20} style={{ marginRight: '8px' }} />外观</h2>
         </SectionHeader>
-        <ThemeOptionLabel>Theme</ThemeOptionLabel>
+        <ThemeOptionLabel>主题</ThemeOptionLabel>
         <ThemeOptionGroup>
           {THEME_OPTIONS.map(({ mode, icon: Icon, label }) => (
             <ThemeOptionButton
@@ -592,7 +592,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
             />
             <SyncToggleSlider />
           </SyncToggleSwitch>
-          24-hour time
+          24 小时制
         </SyncOptionRow>
         <SyncOptionRow>
           <SyncToggleSwitch>
@@ -603,7 +603,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
             />
             <SyncToggleSlider />
           </SyncToggleSwitch>
-          Compact mode
+          紧凑模式
         </SyncOptionRow>
         <SyncOptionRow>
           <SyncToggleSwitch>
@@ -614,7 +614,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
             />
             <SyncToggleSlider />
           </SyncToggleSwitch>
-          Statistics on Home
+          在首页显示统计数据
         </SyncOptionRow>
         <SyncOptionRow>
           <SyncToggleSwitch>
@@ -625,13 +625,13 @@ export const Settings = ({ onBack }: SettingsProps) => {
             />
             <SyncToggleSlider />
           </SyncToggleSwitch>
-          Latest address on Home
+          在首页显示最新地址
         </SyncOptionRow>
       </Section>
 
       <Section>
         <SectionHeader>
-          <h2><MdSecurity size={20} style={{ marginRight: '8px' }} />Permissions & features</h2>
+          <h2><MdSecurity size={20} style={{ marginRight: '8px' }} />权限与功能</h2>
         </SectionHeader>
         {ALL_PERMISSIONS.map(permission => (
           <PermissionToggle
@@ -655,10 +655,10 @@ export const Settings = ({ onBack }: SettingsProps) => {
               />
               <ToggleSlider />
             </ToggleSwitch>
-            <ToggleTitle>History</ToggleTitle>
+            <ToggleTitle>历史记录</ToggleTitle>
           </ToggleHeader>
           <ToggleDescription>
-            Keep a list of the addresses you generate and the recipients you convert. Turn this off and new ones are only copied to the clipboard, nothing is stored.
+            保存你生成的地址和转换过的收件人列表。关闭此项后，新地址只会复制到剪贴板，不会保存任何内容。
           </ToggleDescription>
         </ToggleContainer>
       </Section>
@@ -667,7 +667,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         <SectionHeader>
           <h2>
             <MdSync size={20} style={{ marginRight: '8px' }} />
-            Sync
+            同步
           </h2>
         </SectionHeader>
         <SyncOptionRow style={{ marginBottom: syncOptions.enabled ? '12px' : 0 }}>
@@ -680,7 +680,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
             />
             <SyncToggleSlider />
           </SyncToggleSwitch>
-          Sync across devices
+          跨设备同步
         </SyncOptionRow>
 
         {syncOptions.enabled && (
@@ -716,7 +716,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
             )}
 
             <SyncOptionsContainer>
-              <SyncOptionsTitle>Sync options</SyncOptionsTitle>
+              <SyncOptionsTitle>同步选项</SyncOptionsTitle>
               <SyncOptionRow>
                 <SyncToggleSwitch>
                   <SyncToggleInput
@@ -726,7 +726,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
                   />
                   <SyncToggleSlider />
                 </SyncToggleSwitch>
-                Addresses
+                地址
               </SyncOptionRow>
               <SyncOptionRow>
                 <SyncToggleSwitch>
@@ -737,7 +737,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
                   />
                   <SyncToggleSlider />
                 </SyncToggleSwitch>
-                Send addresses
+                发送地址
               </SyncOptionRow>
               <SyncOptionRow>
                 <SyncToggleSwitch>
@@ -748,14 +748,14 @@ export const Settings = ({ onBack }: SettingsProps) => {
                   />
                   <SyncToggleSlider />
                 </SyncToggleSwitch>
-                Session Data
-                <SyncOptionHint>(login data & settings)</SyncOptionHint>
+                会话数据
+                <SyncOptionHint>（登录数据和设置）</SyncOptionHint>
               </SyncOptionRow>
               {syncOptions.session && (
                 <div style={{ marginLeft: '56px', marginTop: '4px', fontSize: '12px', color: '#ff9f19' }}>
                   {isFirefox
-                    ? 'Session data includes your access tokens. They are encrypted by Firefox during sync but stored in your Mozilla account.'
-                    : 'Session data includes your access tokens. They are encrypted by Chrome during sync but stored in your Google account.'}
+                    ? '会话数据包含你的访问令牌。同步时 Firefox 会对其加密，但数据仍存储在你的 Mozilla 账户中。'
+                    : '会话数据包含你的访问令牌。同步时 Chrome 会对其加密，但数据仍存储在你的 Google 账户中。'}
                 </div>
               )}
             </SyncOptionsContainer>
@@ -764,13 +764,13 @@ export const Settings = ({ onBack }: SettingsProps) => {
               <SyncStatsContainer>
                 <SyncStatRow>
                   <div>
-                    <strong>Status:</strong> {syncStats.lastSync ? `Last synced ${new Date(syncStats.lastSync).toLocaleString()}` : 'Never synced'}
+                    <strong>状态：</strong> {syncStats.lastSync ? `上次同步：${new Date(syncStats.lastSync).toLocaleString()}` : '从未同步'}
                   </div>
                   <SyncStatValue>
                     <RefreshIconButton
                       onClick={handleRefreshSync}
                       disabled={loading.refreshSync}
-                      title="Refresh"
+                      title="刷新"
                     >
                       <MdRefresh size={16} />
                     </RefreshIconButton>
@@ -778,7 +778,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
                 </SyncStatRow>
                 <SyncStatRow>
                   <div>
-                    <strong>Storage used:</strong> {(syncStats.bytesInUse / 1024).toFixed(2)} KB / {(syncStats.quotaBytes / 1024).toFixed(0)} KB ({syncStats.percentUsed.toFixed(1)}%)
+                    <strong>已用存储空间：</strong> {(syncStats.bytesInUse / 1024).toFixed(2)} KB / {(syncStats.quotaBytes / 1024).toFixed(0)} KB ({syncStats.percentUsed.toFixed(1)}%)
                   </div>
                 </SyncStatRow>
               </SyncStatsContainer>
@@ -789,7 +789,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
 
       <Section>
         <SectionHeader>
-          <h2><MdDescription size={20} style={{ marginRight: '8px' }} />Backup & restore</h2>
+          <h2><MdDescription size={20} style={{ marginRight: '8px' }} />备份与恢复</h2>
         </SectionHeader>
 
         <ExportButtonsContainer>
@@ -798,14 +798,14 @@ export const Settings = ({ onBack }: SettingsProps) => {
             disabled={loading.export || selectedAccounts.length === 0}
           >
             <MdDownload size={20} />
-            {loading.export ? 'Exporting...' : 'Export backup'}
+            {loading.export ? '导出中……' : '导出备份'}
           </BackupButton>
           <BackupButton
             onClick={isFirefoxPopup ? () => setShowPopoutPrompt(true) : handleImportClick}
             disabled={loading.import}
           >
             <MdFileUpload size={20} />
-            {loading.import ? 'Importing...' : 'Import backup'}
+            {loading.import ? '导入中……' : '导入备份'}
           </BackupButton>
         </ExportButtonsContainer>
 
@@ -815,7 +815,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
         </ExportOptionHint>
 
         <ExportOptionsContainer>
-          <ExportOptionsTitle>Export options</ExportOptionsTitle>
+          <ExportOptionsTitle>导出选项</ExportOptionsTitle>
 
           {accounts.length > 1 && (
             <DropdownWrapper ref={dropdownRef}>
@@ -857,7 +857,7 @@ export const Settings = ({ onBack }: SettingsProps) => {
               <SyncToggleSlider />
             </SyncToggleSwitch>
             Include session
-            <ExportOptionHint>(login data & settings)</ExportOptionHint>
+            <ExportOptionHint>（登录数据和设置）</ExportOptionHint>
           </ExportOptionRow>
         </ExportOptionsContainer>
 
@@ -877,10 +877,10 @@ export const Settings = ({ onBack }: SettingsProps) => {
       <ConfirmDialog
         isOpen={showPopoutPrompt}
         variant="info"
-        title="Open in new window"
+        title="在新窗口中打开"
         message="Firefox doesn't allow file selection from the popup. The extension will open in a new window where you can import your backup normally."
-        confirmLabel="Open window"
-        cancelLabel="Cancel"
+        confirmLabel="打开窗口"
+        cancelLabel="取消"
         onConfirm={() => {
           setShowPopoutPrompt(false);
           chrome.runtime.sendMessage({ action: 'popoutExtension' });
@@ -892,10 +892,10 @@ export const Settings = ({ onBack }: SettingsProps) => {
       <ConfirmDialog
         isOpen={showExportWarning}
         variant="warning"
-        title="Security warning"
+        title="安全警告"
         message="The exported file will contain your access token and login credentials. Keep this file secure and do not share it. Anyone with this file can access your DuckDuckGo Email account."
-        confirmLabel="Export anyway"
-        cancelLabel="Cancel"
+        confirmLabel="仍然导出"
+        cancelLabel="取消"
         onConfirm={() => {
           setShowExportWarning(false);
           doExport();
@@ -906,10 +906,10 @@ export const Settings = ({ onBack }: SettingsProps) => {
       <ConfirmDialog
         isOpen={showImportConfirm}
         variant="warning"
-        title="Import backup"
-        message="This backup contains session data. Importing it will add the accounts and their data to your extension. Are you sure?"
-        confirmLabel="Import"
-        cancelLabel="Cancel"
+        title="导入备份"
+        message="此备份包含会话数据。导入后，账户及其数据将添加到扩展中。确定要继续吗？"
+        confirmLabel="导入"
+        cancelLabel="取消"
         onConfirm={handleImportConfirmed}
         onCancel={() => {
           setShowImportConfirm(false);
@@ -920,9 +920,9 @@ export const Settings = ({ onBack }: SettingsProps) => {
       <ConfirmDialog
         isOpen={backupSummary !== null}
         variant="info"
-        title={backupSummary?.action === 'export' ? 'Export complete' : 'Import complete'}
+        title={backupSummary?.action === 'export' ? '导出完成' : '导入完成'}
         message={backupSummary ? buildSummaryMessage(backupSummary) : ''}
-        confirmLabel="Close"
+        confirmLabel="关闭"
         singleButton
         onConfirm={async () => {
           const isImport = backupSummary?.action === 'import';

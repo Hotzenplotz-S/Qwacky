@@ -67,12 +67,12 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
 
     setResendLoading(false)
     if (response.status === 'success') {
-      setResendSuccess('A new passphrase has been sent to your email.')
+      setResendSuccess('新的密码短语已发送到你的邮箱。')
       startCooldown()
       if (resendTimeoutRef.current) clearTimeout(resendTimeoutRef.current)
       resendTimeoutRef.current = setTimeout(() => setResendSuccess(''), 5000)
     } else {
-      setError(response.message || 'Failed to resend passphrase.')
+      setError(response.message || '重新发送密码短语失败。')
     }
   }
 
@@ -152,14 +152,14 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
     <OTPContainer>
       <BackButton onClick={onBack}>
         <MdArrowBack size={20} />
-        {isAddingAccount ? 'Back to login' : 'Back'}
+        {isAddingAccount ? '返回登录' : '返回'}
       </BackButton>
 
       <OTPUsername>Logged in as {username}@duck.com</OTPUsername>
-      <OTPMessage>One-time passphrase sent to your email</OTPMessage>
+      <OTPMessage>一次性密码短语已发送到你的邮箱</OTPMessage>
       <OTPInput
         type="text"
-        placeholder="e.g. morality landless proved paprika"
+        placeholder="例如：morality landless proved paprika"
         value={otp}
         onChange={(e) => setOtp(e.target.value.toLowerCase())}
         onKeyUp={handleKeyPress}
@@ -173,12 +173,12 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
         onClick={handleVerify}
         disabled={otp.split(' ').filter(Boolean).length !== 4 || loading}
       >
-        {loading ? 'Verifying...' : 'Verify OTP'}
+        {loading ? '验证中……' : '验证一次性密码'}
       </OTPButton>
 
       <OTPResendRow>
         <OTPResendButton onClick={handleResend} disabled={cooldown > 0 || resendLoading}>
-          {resendLoading ? 'Sending...' : 'Resend passphrase'}
+          {resendLoading ? '发送中……' : '重新发送密码短语'}
         </OTPResendButton>
         {cooldown > 0 && <OTPCooldownText>({cooldown}s)</OTPCooldownText>}
       </OTPResendRow>
@@ -188,7 +188,7 @@ export const OTP = ({ username, onBack, isAddingAccount, onSuccess }: OTPProps) 
 
       <OTPHintToggle onClick={() => setShowHint(prev => !prev)}>
         <MdKeyboardArrowDown size={14} style={{ transform: showHint ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-        Having trouble logging in?
+        登录遇到问题？
       </OTPHintToggle>
       {showHint && (
         <OTPHint>

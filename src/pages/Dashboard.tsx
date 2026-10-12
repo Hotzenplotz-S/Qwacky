@@ -41,27 +41,27 @@ interface StoredAddress {
 }
 
 const GENERATE_LIST_CONFIG: ListConfig = {
-  title: "Address history",
-  itemsLabel: "addresses",
-  emptyTitle: "No addresses yet",
-  emptySubtitle: "Generate your first address from the Home tab",
-  searchPlaceholder: "Search addresses or notes...",
-  deleteTitle: "Delete address",
+  title: "地址历史",
+  itemsLabel: "地址",
+  emptyTitle: "暂无地址",
+  emptySubtitle: "请从“首页”生成你的第一个地址",
+  searchPlaceholder: "搜索地址或备注……",
+  deleteTitle: "删除地址",
   getDeleteMessage: (key) => `Are you sure you want to delete this address\n(${key}@duck.com)?`,
-  clearTitle: "Clear all addresses",
+  clearTitle: "清除所有地址",
   clearMessage: "Are you sure you want to clear all addresses?\n\nThis action cannot be undone.",
   hideStorageKey: "hide_generated_addresses",
 };
 
 const SEND_LIST_CONFIG: ListConfig = {
-  title: "Send history",
-  itemsLabel: "send addresses",
-  emptyTitle: "No history yet",
-  emptySubtitle: "Convert a recipient email above to get started",
-  searchPlaceholder: "Search emails or notes...",
-  deleteTitle: "Delete send address",
+  title: "发送历史",
+  itemsLabel: "发送地址",
+  emptyTitle: "暂无历史记录",
+  emptySubtitle: "请在上方转换收件人邮箱以开始使用",
+  searchPlaceholder: "搜索邮箱或备注……",
+  deleteTitle: "删除发送地址",
   getDeleteMessage: (key) => `Are you sure you want to delete the send address for\n${key}?`,
-  clearTitle: "Clear all history",
+  clearTitle: "清除所有历史记录",
   clearMessage: "Are you sure you want to clear all send history?\n\nThis action cannot be undone.",
   hideStorageKey: "hide_reverse_aliases",
 };
@@ -131,7 +131,7 @@ export const Dashboard = () => {
           setReverseAliases(loadedAliases);
         } catch (error) {
           console.error('Error loading data:', error);
-          showNotification("Failed to load data");
+          showNotification("加载数据失败");
           setAddresses([]);
           setReverseAliases([]);
         }
@@ -147,15 +147,15 @@ export const Dashboard = () => {
   const copyToClipboard = useCallback(async (text: string, event?: MouseEvent) => {
     try {
       await navigator.clipboard.writeText(text);
-      showNotification("Copied!", event);
+      showNotification("已复制！", event);
     } catch {
-      showNotification("Failed to copy", event);
+      showNotification("复制失败", event);
     }
   }, [showNotification]);
 
   const formatTime = useCallback((timestamp: number) => {
     const date = new Date(timestamp);
-    return date.toLocaleString("en-US", {
+    return date.toLocaleString("zh-CN", {
       hour: "numeric",
       minute: "numeric",
       hour12: timeFormat === '12h',
@@ -180,11 +180,11 @@ export const Dashboard = () => {
         }
         copyToClipboard(response.address + "@duck.com");
       } else {
-        showNotification(response.message || "Failed to generate address");
+        showNotification(response.message || "生成地址失败");
       }
     } catch (error) {
       console.error("Error generating address:", error);
-      showNotification("Failed to generate address");
+      showNotification("生成地址失败");
     } finally {
       setLoading(false);
     }
@@ -266,7 +266,7 @@ export const Dashboard = () => {
 
     try { await navigator.clipboard.writeText(alias); } catch {}
     const nativeEvent = event && 'clientX' in event.nativeEvent ? event.nativeEvent as MouseEvent : undefined;
-    showNotification("Copied!", nativeEvent);
+    showNotification("已复制！", nativeEvent);
     setRecipientEmail("");
     setAutoEditAlias(email);
   };
@@ -346,7 +346,7 @@ export const Dashboard = () => {
       {activeTab === 'home' && (
         <>
           <GenerateButton onClick={generateNewAddress} disabled={loading}>
-            {loading ? "Generating..." : "Generate new address"}
+            {loading ? "生成中……" : "生成新地址"}
           </GenerateButton>
           {neverSaveAddresses && (
             <HistoryNotice>
@@ -387,29 +387,29 @@ export const Dashboard = () => {
           <ReverseAliasSection>
             <InstructionsToggle onClick={() => setShowInstructions(prev => !prev)}>
               <MdInfo size={14} />
-              {showInstructions ? 'Hide' : 'How to use'}
+              {showInstructions ? '隐藏' : '使用方法'}
             </InstructionsToggle>
 
             {showInstructions && (
               <>
                 <ReverseAliasSteps>
-                  <li>Enter recipient's email & click <strong>Convert</strong></li>
-                  <li>Paste the result as <strong>To</strong> in your email client</li>
-                  <li>Send from the email linked to your DDG account</li>
+                  <li>输入收件人邮箱并点击 <strong>转换</strong></li>
+                  <li>将结果作为 <strong>收件人</strong> 粘贴到邮件客户端的“收件人”栏</li>
+                  <li>使用与你的 DDG 账户关联的邮箱发送</li>
                 </ReverseAliasSteps>
                 <LearnMoreLink
                   href="https://duckduckgo.com/duckduckgo-help-pages/email-protection/duck-addresses/how-do-i-compose-a-new-email"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Learn more <MdOpenInNew size={12} />
+                  了解更多 <MdOpenInNew size={12} />
                 </LearnMoreLink>
               </>
             )}
 
             {addresses.length > 0 && (
               <SenderSelector onClick={() => { setShowAliasPicker(true); setPickerSearch(''); }}>
-                <span>From:</span>
+                <span>发件人：</span>
                 <span>{(effectiveSender || userData?.user.username) + '@duck.com'}</span>
                 <MdKeyboardArrowDown size={18} />
               </SenderSelector>
@@ -445,13 +445,13 @@ export const Dashboard = () => {
             <DialogOverlay onClick={(e) => { if (e.target === e.currentTarget) { setShowAliasPicker(false); setPickerSearch(''); } }}>
               <PickerContainer>
                 <PickerHeader>
-                  <h3>Send from</h3>
-                  <button aria-label="Close picker" title="Close" onClick={() => { setShowAliasPicker(false); setPickerSearch(''); }}>
+                  <h3>发送账户</h3>
+                  <button aria-label="关闭选择器" title="关闭" onClick={() => { setShowAliasPicker(false); setPickerSearch(''); }}>
                     <MdClose size={20} />
                   </button>
                 </PickerHeader>
                 <PickerSearchInput
-                  placeholder="Search addresses..."
+                  placeholder="搜索地址……"
                   value={pickerSearch}
                   onChange={(e) => setPickerSearch(e.target.value)}
                   autoFocus
@@ -465,7 +465,7 @@ export const Dashboard = () => {
                       {userData?.user.username}@duck.com
                       {!effectiveSender && <MdCheck size={14} style={{ marginLeft: 6, verticalAlign: 'middle' }} />}
                     </PickerItemText>
-                    <PickerItemLabel>Personal address</PickerItemLabel>
+                    <PickerItemLabel>个人地址</PickerItemLabel>
                   </PickerItem>
                   {filteredPickerAddresses.map(addr => (
                     <PickerItem

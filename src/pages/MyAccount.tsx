@@ -29,9 +29,9 @@ export const MyAccount = ({ onBack }: MyAccountProps) => {
   const copyToClipboard = useCallback(async (text: string, event?: MouseEvent) => {
     try {
       await navigator.clipboard.writeText(text)
-      showNotification('Copied!', event)
+      showNotification('已复制！', event)
     } catch {
-      showNotification('Failed to copy', event)
+      showNotification('复制失败', event)
     }
   }, [showNotification])
 
@@ -47,7 +47,7 @@ export const MyAccount = ({ onBack }: MyAccountProps) => {
     if (result.status === 'success') {
       onBack()
     } else {
-      showNotification(result.message || 'Failed to remove account')
+      showNotification(result.message || '移除账户失败')
     }
   }
 
@@ -74,22 +74,22 @@ export const MyAccount = ({ onBack }: MyAccountProps) => {
 
       <ManageAccountButton onClick={handleOpenDuckDuckGoEmail}>
         <MdOpenInNew size={20} />
-        Manage your duck account
+        管理你的 Duck 账户
         <MdOpenInNew size={16} />
       </ManageAccountButton>
 
       <DeleteAccountButton onClick={() => setShowRemoveConfirm(true)} disabled={removing}>
         <MdDeleteOutline size={20} />
-        {removing ? 'Removing...' : 'Remove account local data'}
+        {removing ? '移除中……' : '移除账户本地数据'}
       </DeleteAccountButton>
 
       <ConfirmDialog
         isOpen={showRemoveConfirm}
         variant="warning"
-        title="Remove account local data"
+        title="移除账户本地数据"
         message={`You're about to remove ${accountLabel} along with its ${removedParts} from this device and from sync. Your DuckDuckGo account itself is not affected. This cannot be undone.`}
-        confirmLabel="Remove"
-        cancelLabel="Cancel"
+        confirmLabel="移除"
+        cancelLabel="取消"
         onConfirm={handleRemoveAccount}
         onCancel={() => setShowRemoveConfirm(false)}
       />

@@ -104,13 +104,13 @@ const ContextMenu = {
           api.contextMenus.create({
             id: CONTEXT_MENU_ID,
             parentId: PARENT_MENU_ID,
-            title: 'Autofill duck address',
+            title: '自动填充 Duck 地址',
             contexts: ['editable']
           }, () => { void chrome.runtime.lastError; });
           api.contextMenus.create({
             id: CONVERT_MENU_ID,
             parentId: PARENT_MENU_ID,
-            title: 'Convert to send address',
+            title: '转换为发送地址',
             contexts: ['editable']
           }, () => { void chrome.runtime.lastError; });
           resolve(true);
@@ -301,7 +301,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.action === 'requestOTP') {
     if (typeof message.username !== 'string') {
-      sendResponse({ status: 'error', message: 'Invalid username' })
+      sendResponse({ status: 'error', message: '用户名无效' })
       return true
     }
     duckService.login(message.username)
@@ -312,7 +312,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.action === 'verifyOTP') {
     if (typeof message.username !== 'string' || typeof message.otp !== 'string') {
-      sendResponse({ status: 'error', message: 'Invalid credentials' })
+      sendResponse({ status: 'error', message: '凭据无效' })
       return true
     }
     duckService.verifyOTP(message.username, message.otp)
@@ -323,7 +323,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.action === 'auto-login') {
     if (typeof message.token !== 'string') {
-      sendResponse({ status: 'error', message: 'Invalid token' })
+      sendResponse({ status: 'error', message: '令牌无效' })
       return true
     }
 
@@ -340,7 +340,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         const dashboardResponse = await fetch('https://quack.duckduckgo.com/api/email/dashboard', { headers })
         if (!dashboardResponse.ok) {
           await api.storage.local.set({ auto_login_error: 'Failed to load dashboard data. Please log in manually.' })
-          sendResponse({ status: 'error', message: 'Failed to load dashboard data.' })
+          sendResponse({ status: 'error', message: '加载控制面板数据失败。' })
           return
         }
 
@@ -412,7 +412,7 @@ api.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   return false
 })
 
-const GENERATING_MESSAGE = 'Generating duck address...'
+const GENERATING_MESSAGE = '正在生成 Duck 地址……'
 
 const showPending = async (tabId: number, message: string): Promise<void> => {
   try {
@@ -439,7 +439,7 @@ const performConvert = async (tabId: number, selectionText: string) => {
       try {
         await api.tabs.sendMessage(tabId, {
           type: 'show-notification',
-          message: 'Select a recipient email to convert'
+          message: '请选择要转换的收件人邮箱'
         });
       } catch {
       }
@@ -451,7 +451,7 @@ const performConvert = async (tabId: number, selectionText: string) => {
       try {
         await api.tabs.sendMessage(tabId, {
           type: 'show-notification',
-          message: 'You need to login first'
+          message: '请先登录'
         });
       } catch {
       }
@@ -495,7 +495,7 @@ if (api.contextMenus) {
           try {
             await api.tabs.sendMessage(tab.id, {
               type: 'show-notification',
-              message: response.message || 'Failed to generate address. Login required?'
+              message: response.message || '生成地址失败，是否需要登录。'
             });
           } catch {
           }
@@ -568,7 +568,7 @@ if (api.commands) {
         try {
           await api.tabs.sendMessage(activeTab.id, {
             type: 'show-notification',
-            message: response.message || 'Failed to generate address. Login required?'
+            message: response.message || '生成地址失败，是否需要登录。'
           });
         } catch {
         }

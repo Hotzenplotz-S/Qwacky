@@ -17,7 +17,7 @@ export class DuckService {
   async login(username: string): Promise<LoginResponse> {
     try {
       if (!username || typeof username !== 'string' || username.trim() === '') {
-        return { status: 'error', message: 'Username is required' }
+        return { status: 'error', message: '必须填写用户名' }
       }
       
       const response = await this.auth.requestOTP(username)
@@ -34,11 +34,11 @@ export class DuckService {
   async verifyOTP(username: string, otp: string): Promise<VerifyResponse> {
     try {
       if (!username || typeof username !== 'string' || username.trim() === '') {
-        return { status: 'error', message: 'Username is required' }
+        return { status: 'error', message: '必须填写用户名' }
       }
       
       if (!otp || typeof otp !== 'string' || otp.trim() === '') {
-        return { status: 'error', message: 'OTP is required' }
+        return { status: 'error', message: '必须填写一次性密码' }
       }
       
       const response = await this.auth.verifyOTP(username, otp)
@@ -64,17 +64,17 @@ export class DuckService {
     try {
       const userData = await this.storage.getUserData()
       if (!userData) {
-        return { status: 'error', message: 'You need to login first' }
+        return { status: 'error', message: '请先登录' }
       }
       
       if (!userData.user || !userData.user.access_token) {
-        return { status: 'error', message: 'Invalid user data. Please log in again.' }
+        return { status: 'error', message: '用户数据无效，请重新登录。' }
       }
       
       const response = await this.auth.generateAddress(userData.user.access_token)
       if (response.status === 'success') {
         if (!response.address) {
-          return { status: 'error', message: 'No address returned from the server' }
+          return { status: 'error', message: '服务器未返回地址' }
         }
         
         const neverSave = await this.storage.getNeverSaveAddresses()
@@ -92,7 +92,7 @@ export class DuckService {
       console.error('Error generating address:', error)
       return { 
         status: 'error', 
-        message: error instanceof Error ? error.message : 'Unknown error generating address'
+        message: error instanceof Error ? error.message : '生成地址时发生未知错误'
       }
     }
   }
@@ -111,7 +111,7 @@ export class DuckService {
       return await this.storage.deleteAccount(username)
     } catch (error: unknown) {
       console.error('Error deleting account:', error)
-      return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error deleting account' }
+      return { status: 'error', message: error instanceof Error ? error.message : '删除账户时发生未知错误' }
     }
   }
 
@@ -123,7 +123,7 @@ export class DuckService {
       console.error('Error during logout:', error)
       return { 
         success: false, 
-        message: error instanceof Error ? error.message : 'Unknown error during logout'
+        message: error instanceof Error ? error.message : '退出登录时发生未知错误'
       }
     }
   }

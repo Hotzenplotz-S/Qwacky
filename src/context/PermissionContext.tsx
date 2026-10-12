@@ -38,22 +38,22 @@ interface Permission {
 
 export const PERMISSIONS: Record<PermissionType, Permission> = {
   storage: {
-    name: 'Storage',
-    description: '`storage`\nRequired for the extension to function properly, to store and retrieve data locally',
+    name: '存储',
+    description: '`storage`\n扩展正常运行以及在本地存储和读取数据所必需',
     isRequired: true,
     permissions: ['storage']
   },
   contextMenu: {
-    name: 'Context menu',
+    name: '上下文菜单',
     description: '`contextMenus`\nFirefox requires this permission to be listed in the manifest\'s permissions block at install time, [Read More](https://github.com/Lanshuns/Qwacky/blob/main/PRIVACY.md#permissions)',
     isRequired: true,
     permissions: ['contextMenus']
   },
   contextMenuFeatures: {
-    name: 'Autofill',
+    name: '自动填充',
     description: isFirefox
-      ? '`activeTab`, `clipboardWrite` and `scripting`\nEnables the Qwacky options in the context menu, to generate a duck address or convert a recipient into a send address'
-      : '`contextMenus`, `activeTab`, `clipboardWrite` and `scripting`\nEnables the Qwacky options in the context menu, to generate a duck address or convert a recipient into a send address',
+      ? '`activeTab`, `clipboardWrite` and `scripting`\n启用上下文菜单中的 Qwacky 选项，用于生成 Duck 地址或将收件人转换为发送地址'
+      : '`contextMenus`, `activeTab`, `clipboardWrite` and `scripting`\n启用上下文菜单中的 Qwacky 选项，用于生成 Duck 地址或将收件人转换为发送地址',
     isRequired: false,
     permissions: [
       'activeTab',
@@ -61,7 +61,7 @@ export const PERMISSIONS: Record<PermissionType, Permission> = {
       'scripting'
     ],
     browserSpecificInfo: contextMenusUnsupportedOnPlatform
-      ? { firefox: 'Not available on Firefox for Android: the browser has no extension context menus or keyboard shortcuts. Everything else in the popup works as normal.' }
+      ? { firefox: 'Firefox Android 不支持：该浏览器没有扩展上下文菜单或键盘快捷键。弹出窗口中的其他功能均可正常使用。' }
       : undefined
   }
 }

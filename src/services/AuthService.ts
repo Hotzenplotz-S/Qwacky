@@ -19,12 +19,12 @@ export class AuthService {
         return { status: 'success', needs_otp: true, message: 'OTP sent to your email!' }
       }
       if (response.status === 429) {
-        return { status: 'error', message: 'Too many requests. Please wait a moment before trying again.' }
+        return { status: 'error', message: '请求过于频繁，请稍候再试。' }
       }
-      return { status: 'error', message: 'Failed to send OTP. Please try again later.' }
+      return { status: 'error', message: '发送一次性密码失败，请稍后再试。' }
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
-        return { status: 'error', message: 'Network error. Please check your internet connection.' }
+        return { status: 'error', message: '网络错误，请检查网络连接。' }
       }
       return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error' }
     }
@@ -40,7 +40,7 @@ export class AuthService {
         { headers: this.headers }
       )
       if (loginResponse.status === 429) {
-        return { status: 'error', message: 'Too many requests. Please wait a moment before trying again.' }
+        return { status: 'error', message: '请求过于频繁，请稍候再试。' }
       }
       if (!loginResponse.ok) {
         return { status: 'error', message: 'Login failed. Please try again.' }
@@ -50,7 +50,7 @@ export class AuthService {
       try {
         loginData = await loginResponse.json();
       } catch {
-        return { status: 'error', message: 'Invalid response from server.' };
+        return { status: 'error', message: '服务器返回了无效响应。' };
       }
 
       if ('token' in loginData) {
@@ -61,28 +61,28 @@ export class AuthService {
         )
 
         if (!dashboardResponse.ok) {
-          return { status: 'error', message: 'Failed to load dashboard data.' }
+          return { status: 'error', message: '加载控制面板数据失败。' }
         }
 
         let dashboardData;
         try {
           dashboardData = await dashboardResponse.json();
         } catch {
-          return { status: 'error', message: 'Invalid response from server.' };
+          return { status: 'error', message: '服务器返回了无效响应。' };
         }
 
         return {
           status: 'success',
           dashboard: dashboardData,
           access_token: loginData.token,
-          message: 'Login successful!'
+          message: '登录成功！'
         }
       }
       
       return { status: 'error', message: 'Invalid passphrase. Please check the passphrase in your email and try again.' }
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
-        return { status: 'error', message: 'Network error. Please check your internet connection.' }
+        return { status: 'error', message: '网络错误，请检查网络连接。' }
       }
       return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error' }
     }
@@ -105,10 +105,10 @@ export class AuthService {
       )
       
       if (response.status === 401 || response.status === 403) {
-        return { status: 'error', message: 'Session expired. Please log in again.' }
+        return { status: 'error', message: '会话已过期，请重新登录。' }
       }
       if (response.status === 429) {
-        return { status: 'error', message: 'Rate limited by DuckDuckGo. Try again later.' }
+        return { status: 'error', message: 'DuckDuckGo 限制了请求频率，请稍后再试。' }
       }
       if (!response.ok) {
         return { status: 'error', message: `DuckDuckGo returned error ${response.status}` }
@@ -118,7 +118,7 @@ export class AuthService {
       try {
         data = await response.json();
       } catch {
-        return { status: 'error', message: 'Invalid response from server.' };
+        return { status: 'error', message: '服务器返回了无效响应。' };
       }
       if (data.address) {
         return { 

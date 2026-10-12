@@ -371,10 +371,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       <ConfirmDialog
         isOpen={syncSessionPrompt !== null}
         variant="info"
-        title="Synced accounts found"
+        title="发现已同步的账户"
         message={syncSessionPrompt ? `Found ${syncSessionPrompt.newAccounts.length} synced account(s): ${syncSessionPrompt.newAccounts.map(u => u + '@duck.com').join(', ')}. Would you like to restore them?` : ''}
         confirmLabel="Restore"
-        cancelLabel="Cancel"
+        cancelLabel="取消"
         onConfirm={handleRestoreSyncSession}
         onCancel={() => setSyncSessionPrompt(null)}
       />

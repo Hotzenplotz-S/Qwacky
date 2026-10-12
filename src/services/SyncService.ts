@@ -292,7 +292,7 @@ export class SyncService {
       return await this.migrateToSync();
     }
 
-    return { success: true, message: 'Sync disabled' };
+    return { success: true, message: '同步已关闭' };
   }
 
   private async migrateDataToSync(localData: any[], syncKey: string, mergeFn: (local: any[], sync: any[]) => Promise<any[]>, validateFn: (data: any[]) => any[]): Promise<{ count: number; error?: string }> {
@@ -338,7 +338,7 @@ export class SyncService {
     try {
       const username = await this.getCurrentUsername();
       if (!username) {
-        return { success: false, message: 'No user logged in' };
+        return { success: false, message: '当前未登录' };
       }
 
       const options = await this.getSyncOptions();
@@ -388,12 +388,12 @@ export class SyncService {
 
       if (parts.length === 0) {
         await chrome.storage.sync.set({ [SyncService.SYNC_LAST_SYNC_KEY]: Date.now() });
-        return { success: true, message: 'No data to migrate' };
+        return { success: true, message: '没有需要迁移的数据' };
       }
 
       return {
         success: true,
-        message: `Successfully synced ${parts.join(', ')}`,
+        message: `同步成功：${parts.join(', ')}`,
       };
     } catch (error: unknown) {
       console.error('Migration error:', error);
@@ -401,13 +401,13 @@ export class SyncService {
       if (errorMessage(error).includes('QUOTA_BYTES')) {
         return {
           success: false,
-          message: 'Storage quota exceeded. Try reducing the amount of synced data.',
+          message: '超出存储配额，请减少同步数据量。',
         };
       }
 
       return {
         success: false,
-        message: errorMessage(error) || 'Migration failed',
+        message: errorMessage(error) || '迁移失败',
       };
     }
   }
@@ -900,13 +900,13 @@ export class SyncService {
   async pullFromSync(): Promise<{ success: boolean; message: string }> {
     const options = await this.getSyncOptions();
     if (!options.enabled) {
-      return { success: false, message: 'Sync is not enabled' };
+      return { success: false, message: '同步未启用' };
     }
 
     try {
       const username = await this.getCurrentUsername();
       if (!username) {
-        return { success: false, message: 'No user logged in' };
+        return { success: false, message: '当前未登录' };
       }
 
       const parts: string[] = [];
@@ -1010,13 +1010,13 @@ export class SyncService {
 
       return {
         success: true,
-        message: parts.length > 0 ? `Successfully synced ${parts.join(', ')}` : 'No synced data found',
+        message: parts.length > 0 ? `同步成功：${parts.join(', ')}` : '未找到同步数据',
       };
     } catch (error: unknown) {
       console.error('Pull from sync error:', error);
       return {
         success: false,
-        message: errorMessage(error) || 'Failed to pull from sync',
+        message: errorMessage(error) || '从同步数据中读取失败',
       };
     }
   }

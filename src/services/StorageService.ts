@@ -375,7 +375,7 @@ export class StorageService {
   async deleteAccount(username: string): Promise<{ status: 'success' | 'error'; loggedOut?: boolean; message?: string }> {
     try {
       if (!username) {
-        return { status: 'error', message: 'Username is required' };
+        return { status: 'error', message: '必须填写用户名' };
       }
 
       const result = await chrome.storage.local.get(['accounts', 'currentAccount', 'generated_addresses']);
@@ -416,7 +416,7 @@ export class StorageService {
 
       return { status: 'success', loggedOut };
     } catch (error) {
-      return { status: 'error', message: error instanceof Error ? error.message : 'Failed to delete account' };
+      return { status: 'error', message: error instanceof Error ? error.message : '删除账户失败' };
     }
   }
 

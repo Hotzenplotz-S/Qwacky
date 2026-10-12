@@ -83,7 +83,7 @@ export const Login = ({ onSubmit, isAddingAccount, onBack }: LoginProps) => {
 
     if (accounts.some(acc => acc.username === cleanUsername)) {
       setLoading(false)
-      setError('This account is already logged in')
+      setError('此账户已登录')
       return
     }
 
@@ -108,14 +108,14 @@ export const Login = ({ onSubmit, isAddingAccount, onBack }: LoginProps) => {
       {isAddingAccount && onBack && (
         <BackButton onClick={onBack}>
           <MdArrowBack size={20} />
-          Back to Dashboard
+          返回控制面板
         </BackButton>
       )}
-      <LoginMessage>Login to manage your <DuckText>@duck.com</DuckText> addresses</LoginMessage>
+      <LoginMessage>登录以管理你的 <DuckText>@duck.com</DuckText> 地址</LoginMessage>
       <InputWrapper>
         <LoginInput
           type="text"
-          placeholder="Enter duck username"
+          placeholder="输入 Duck 用户名"
           value={username}
           onChange={handleUsernameChange}
           onKeyUp={handleKeyPress}
@@ -127,21 +127,21 @@ export const Login = ({ onSubmit, isAddingAccount, onBack }: LoginProps) => {
         <Suffix>@duck.com</Suffix>
       </InputWrapper>
       <PrimaryButton onClick={handleSubmit} disabled={!username || loading}>
-        {loading ? 'Sending...' : 'Continue'}
+        {loading ? '发送中……' : '继续'}
       </PrimaryButton>
       {error && <LoginErrorMessage>{error}</LoginErrorMessage>}
 
       <SignupSection>
-        Don't have one? <SignupLink onClick={handleCreateAccount}>Create now</SignupLink>
+        还没有账户？ <SignupLink onClick={handleCreateAccount}>立即创建</SignupLink>
       </SignupSection>
 
       <ConfirmDialog
         isOpen={showSignupDialog}
         variant="info"
-        title="Create a duck address"
+        title="创建 Duck 地址"
         message="You'll be redirected to DuckDuckGo to create your @duck.com address. Once you complete the signup, you'll be automatically logged in."
-        confirmLabel="Continue to DuckDuckGo"
-        cancelLabel="Cancel"
+        confirmLabel="继续前往 DuckDuckGo"
+        cancelLabel="取消"
         onConfirm={handleSignupConfirm}
         onCancel={() => setShowSignupDialog(false)}
       />

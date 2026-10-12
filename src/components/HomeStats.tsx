@@ -84,13 +84,13 @@ export const HomeStats: React.FC<HomeStatsProps> = ({ addresses, aliases, accoun
   return (
     <>
       {showLatest && (
-      <Card aria-label="Latest address">
-        <CardLabel>Latest</CardLabel>
+      <Card aria-label="最新地址">
+        <CardLabel>最新</CardLabel>
         {latest ? (
           <LatestRow
             onClick={(e) => copyToClipboard(`${latest.value}@duck.com`, e.nativeEvent)}
             aria-label={`Copy ${latest.value}@duck.com`}
-            title="Copy to clipboard"
+            title="复制到剪贴板"
           >
             <div>
               <LatestValue>{latest.value}@duck.com</LatestValue>
@@ -99,13 +99,13 @@ export const HomeStats: React.FC<HomeStatsProps> = ({ addresses, aliases, accoun
             <MdContentCopy size={16} />
           </LatestRow>
         ) : (
-          <EmptyHint>Your first address will show up here.</EmptyHint>
+          <EmptyHint>你的第一个地址会显示在这里。</EmptyHint>
         )}
       </Card>
       )}
 
       {showStats && (
-      <Card aria-label="Statistics">
+      <Card aria-label="统计数据">
         <Headline>
           <HeadlineNumber>{stats.total}</HeadlineNumber>
           <HeadlineText>
@@ -114,7 +114,7 @@ export const HomeStats: React.FC<HomeStatsProps> = ({ addresses, aliases, accoun
         </Headline>
 
         <RangeRow>
-          <RangeGroup role="group" aria-label="Range">
+          <RangeGroup role="group" aria-label="时间范围">
             {RANGES.map(r => (
               <RangeButton
                 key={r.label}
@@ -151,27 +151,27 @@ export const HomeStats: React.FC<HomeStatsProps> = ({ addresses, aliases, accoun
         <Grid>
           <Cell>
             <CellValue>{stats.sendTotal}</CellValue>
-            <CellLabel>Send addresses</CellLabel>
+            <CellLabel>发送地址</CellLabel>
           </Cell>
           <Cell>
             <CellValue>
               {stats.timelineTotal}
               {typeof accountTotal === 'number' && accountTotal > 0 && <small> of {accountTotal}</small>}
             </CellValue>
-            <CellLabel>{typeof accountTotal === 'number' && accountTotal > 0 ? 'Made here, of account total' : 'Made with Qwacky'}</CellLabel>
+            <CellLabel>{typeof accountTotal === 'number' && accountTotal > 0 ? '在此生成，占账户总数' : '使用 Qwacky 生成'}</CellLabel>
           </Cell>
           <Cell>
             <CellValue>{taggedPercent}<small>%</small></CellValue>
-            <CellLabel>Tagged</CellLabel>
+            <CellLabel>已添加标签</CellLabel>
           </Cell>
           <Cell>
             <CellValue>{fromPage}</CellValue>
-            <CellLabel>From right-click or shortcut</CellLabel>
+            <CellLabel>来自右键菜单或快捷键</CellLabel>
           </Cell>
         </Grid>
 
         {stats.topTags.length > 0 && (
-          <TagRow aria-label="Most used tags">
+          <TagRow aria-label="最常用标签">
             {stats.topTags.map(t => (
               <TagPill key={t.tag}>
                 {t.tag} <b>{t.count}</b>

@@ -50,8 +50,8 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
     if (this.state.hasError) {
       return (
         <ErrorContainer>
-          <ErrorTitle>Something went wrong</ErrorTitle>
-          <ErrorMessage>The extension encountered an unexpected error.</ErrorMessage>
+          <ErrorTitle>出了点问题</ErrorTitle>
+          <ErrorMessage>扩展遇到了意外错误。</ErrorMessage>
           <ReloadButton onClick={() => window.location.reload()}>
             Reload Extension
           </ReloadButton>

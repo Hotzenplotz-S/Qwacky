@@ -10,9 +10,9 @@ interface DashboardTabsProps {
 }
 
 const TABS: Array<{ id: DashboardTab; label: string; icon: React.ReactNode }> = [
-  { id: 'home', label: 'Home', icon: <MdHome /> },
-  { id: 'addresses', label: 'Addresses', icon: <MdFormatListBulleted /> },
-  { id: 'send', label: 'Send', icon: <MdSend /> }
+  { id: 'home', label: '首页', icon: <MdHome /> },
+  { id: 'addresses', label: '地址', icon: <MdFormatListBulleted /> },
+  { id: 'send', label: '发送', icon: <MdSend /> }
 ];
 
 export const DashboardTabs: React.FC<DashboardTabsProps> = ({ activeTab, onTabChange }) => {

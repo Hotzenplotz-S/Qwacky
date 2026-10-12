@@ -73,7 +73,7 @@ const showNotification = (message: string, pending = false) => {
   }
 
   const label = document.createElement('span')
-  label.textContent = message === 'Not authenticated' ? 'You need to login first' : message
+  label.textContent = message === 'Not authenticated' ? '请先登录' : message
   notification.appendChild(label)
 
   document.body.appendChild(notification)

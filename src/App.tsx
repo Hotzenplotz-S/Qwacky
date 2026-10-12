@@ -353,18 +353,18 @@ export const App = () => {
         <ConfirmDialog
           isOpen={autoLoginAccount !== null}
           variant="info"
-          title="Logged in successfully"
+          title="登录成功"
           message={`Automatically logged in as ${autoLoginAccount}@duck.com`}
-          confirmLabel="Got it"
+          confirmLabel="知道了"
           singleButton
           onConfirm={() => setAutoLoginAccount(null)}
         />
         <ConfirmDialog
           isOpen={autoLoginError !== null}
           variant="warning"
-          title="Auto-login failed"
+          title="自动登录失败"
           message={autoLoginError || ''}
-          confirmLabel="OK"
+          confirmLabel="确定"
           singleButton
           onConfirm={() => setAutoLoginError(null)}
         />

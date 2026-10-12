@@ -157,16 +157,16 @@ const renderItem = (
                 setEditingTags(editingTags === item.key ? null : item.key);
                 setTagInputValue('');
               }}
-              aria-label="Edit tags"
-              title="Edit tags"
+              aria-label="编辑标签"
+              title="编辑标签"
             >
               <MdLabel size={18} />
             </IconButton>
           )}
-          <IconButton onClick={() => handleEditNotes(item)} aria-label="Edit notes" title="Edit notes">
+          <IconButton onClick={() => handleEditNotes(item)} aria-label="编辑备注" title="编辑备注">
             <MdEdit size={18} />
           </IconButton>
-          <IconButton className="delete" onClick={() => setDeleteConfirm(item.key)} aria-label="Delete" title="Delete">
+          <IconButton className="delete" onClick={() => setDeleteConfirm(item.key)} aria-label="删除" title="删除">
             <MdDelete size={18} />
           </IconButton>
         </ButtonsContainer>
@@ -203,13 +203,13 @@ const renderItem = (
                 setTagInputValue('');
               }
             }}
-            placeholder="Add tag..."
+            placeholder="添加标签……"
             autoFocus
           />
-          <IconButton onClick={() => { handleAddTag(tagInputValue); }} aria-label="Add tag" title="Add tag">
+          <IconButton onClick={() => { handleAddTag(tagInputValue); }} aria-label="添加标签" title="添加标签">
             <MdCheck size={16} />
           </IconButton>
-          <IconButton onClick={() => { setEditingTags(null); setTagInputValue(''); }} aria-label="Close tag input" title="Close">
+          <IconButton onClick={() => { setEditingTags(null); setTagInputValue(''); }} aria-label="关闭标签输入" title="关闭">
             <MdClose size={16} />
           </IconButton>
           {suggestions.length > 0 && (
@@ -234,15 +234,15 @@ const renderItem = (
               if (e.key === 'Enter') { e.preventDefault(); handleSaveNotes(); }
               else if (e.key === 'Escape') { e.preventDefault(); handleCancelEdit(); }
             }}
-            placeholder="Add notes..."
-            aria-label="Edit notes"
+            placeholder="添加备注……"
+            aria-label="编辑备注"
             autoFocus={editing.autoFocus}
           />
           <NotesActions>
-            <IconButton onClick={handleSaveNotes} aria-label="Save notes" title="Save">
+            <IconButton onClick={handleSaveNotes} aria-label="保存备注" title="保存">
               <MdCheck size={18} />
             </IconButton>
-            <IconButton onClick={handleCancelEdit} aria-label="Cancel editing" title="Cancel">
+            <IconButton onClick={handleCancelEdit} aria-label="取消编辑" title="取消">
               <MdClose size={18} />
             </IconButton>
           </NotesActions>
@@ -399,7 +399,7 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
       result.push({ name: tag, items: groups.get(tag)! });
     });
     if (untagged.length > 0) {
-      result.push({ name: 'Untagged', items: untagged });
+      result.push({ name: '未标记', items: untagged });
     }
     return result;
   }, [filteredAndSorted, groupByTag]);
@@ -422,12 +422,12 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
 
   const toggleGroupByTag = useCallback(() => {
     if (!groupByTag) {
-      setCollapsedGroups(new Set([...uniqueTags, 'Untagged']));
+      setCollapsedGroups(new Set([...uniqueTags, '未标记']));
     }
     setGroupByTag(prev => !prev);
   }, [groupByTag, uniqueTags]);
 
-  const getSortLabel = () => sortOrder === 'newest' ? 'Newest' : 'Oldest';
+  const getSortLabel = () => sortOrder === 'newest' ? '最新' : '最早';
 
   const renderItemCallback = useCallback((item: ListItem, index: number) => {
     return renderItem(
@@ -455,8 +455,8 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
       return (
         <EmptyState>
           <MdSearch />
-          <h3>No results found</h3>
-          <p>Try adjusting your search or filter</p>
+          <h3>未找到结果</h3>
+          <p>请调整搜索条件或筛选条件</p>
         </EmptyState>
       );
     }
@@ -492,11 +492,11 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
           <h2>{config.title}</h2>
           <HeaderActions>
             {items.length > 0 && (
-              <IconButton className="clear" onClick={() => setShowClearConfirm(true)} aria-label={`Clear all ${config.itemsLabel}`} title={`Clear all ${config.itemsLabel}`}>
+              <IconButton className="clear" onClick={() => setShowClearConfirm(true)} aria-label={`清除全部${config.itemsLabel}`} title={`清除全部${config.itemsLabel}`}>
                 <MdDeleteSweep size={24} />
               </IconButton>
             )}
-            <IconButton onClick={toggleHidden} aria-label={hidden ? `Show ${config.itemsLabel}` : `Hide ${config.itemsLabel}`} title={hidden ? `Show ${config.itemsLabel}` : `Hide ${config.itemsLabel}`} aria-expanded={!hidden}>
+            <IconButton onClick={toggleHidden} aria-label={hidden ? `显示${config.itemsLabel}` : `隐藏${config.itemsLabel}`} title={hidden ? `显示${config.itemsLabel}` : `隐藏${config.itemsLabel}`} aria-expanded={!hidden}>
               {hidden ? <MdVisibility /> : <MdVisibilityOff />}
             </IconButton>
           </HeaderActions>
@@ -515,17 +515,17 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
                   aria-label={`Search ${config.itemsLabel}`}
                 />
                 {searchQuery && (
-                  <ClearSearchButton onClick={() => setSearchQuery('')} aria-label="Clear search" title="Clear search">
+                  <ClearSearchButton onClick={() => setSearchQuery('')} aria-label="清除搜索" title="清除搜索">
                     <MdClear size={20} />
                   </ClearSearchButton>
                 )}
               </SearchInputWrapper>
-              <SortButton onClick={cycleSortOrder} active={sortOrder !== 'newest'} aria-label={`Sort by ${getSortLabel()}`} title="Change sort order">
+              <SortButton onClick={cycleSortOrder} active={sortOrder !== 'newest'} aria-label={`按${getSortLabel()}排序`} title="更改排序">
                 <MdSort />
                 {getSortLabel()}
               </SortButton>
               {uniqueTags.length > 0 && (
-                <GroupByButton onClick={toggleGroupByTag} active={groupByTag} aria-label="Group by tag" title="Group by tag">
+                <GroupByButton onClick={toggleGroupByTag} active={groupByTag} aria-label="按标签分组" title="按标签分组">
                   <MdLabel />
                   Group
                 </GroupByButton>
@@ -565,8 +565,8 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
         isOpen={deleteConfirm !== null}
         title={config.deleteTitle}
         message={deleteConfirm ? config.getDeleteMessage(deleteConfirm) : ''}
-        confirmLabel="Delete"
-        cancelLabel="Cancel"
+        confirmLabel="删除"
+        cancelLabel="取消"
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeleteConfirm(null)}
       />
@@ -575,8 +575,8 @@ export const ItemListSection: React.FC<ItemListSectionProps> = ({
         isOpen={showClearConfirm}
         title={config.clearTitle}
         message={config.clearMessage}
-        confirmLabel="Clear all"
-        cancelLabel="Cancel"
+        confirmLabel="全部清除"
+        cancelLabel="取消"
         onConfirm={handleClearConfirm}
         onCancel={() => setShowClearConfirm(false)}
       />

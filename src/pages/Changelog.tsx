@@ -24,7 +24,7 @@ export const Changelog = ({ onBack }: ChangelogProps) => {
         setChangelog(text.replace(/^# Changelog$/m, "# What's new?"));
       } catch (err) {
         console.error('Error loading changelog:', err);
-        setError('Could not load changelog. Please try again later.');
+        setError('无法加载更新日志，请稍后再试');
       } finally {
         setLoading(false);
       }
@@ -40,7 +40,7 @@ export const Changelog = ({ onBack }: ChangelogProps) => {
         Back to Dashboard
       </BackButton>
 
-      {loading && <ChangelogLoadingMessage>Loading changelog...</ChangelogLoadingMessage>}
+      {loading && <ChangelogLoadingMessage>正在加载更新日志……</ChangelogLoadingMessage>}
       {error && <ChangelogErrorMessage>{error}</ChangelogErrorMessage>}
 
       {!loading && !error && (

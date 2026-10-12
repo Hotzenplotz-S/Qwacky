@@ -174,13 +174,13 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
   return (
     <>
       <HeaderContainer>
-        <TitleSection onClick={openRepo} title="Open the Qwacky repository">
+        <TitleSection onClick={openRepo} title="打开 Qwacky 仓库">
           <Logo src="/assets/icons/qwacky.png" alt="Qwacky" />
           <Title>Qwacky</Title>
         </TitleSection>
         <IconsSection>
           {!isPopout && (
-            <IconButton onClick={handlePopout} aria-label="Open in a window" title="Open in a window">
+            <IconButton onClick={handlePopout} aria-label="在窗口中打开" title="在窗口中打开">
               <MdOpenInNew size={24} />
             </IconButton>
           )}
@@ -188,8 +188,8 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
             <MenuDropdown ref={accountDropdownRef}>
               <AvatarButton
                 onClick={() => { setAccountDropdownOpen(!accountDropdownOpen); setMenuDropdownOpen(false) }}
-                aria-label="Account menu"
-                title="Account"
+                aria-label="账户菜单"
+                title="账户"
                 aria-expanded={accountDropdownOpen}
               >
                 <Avatar color={colorOf(currentAccount)}>{getDisplayName(currentAccount).charAt(0)}</Avatar>
@@ -202,10 +202,10 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
                     size={22}
                     className="edit-icon"
                     onClick={handleEditNickname}
-                    title="Edit nickname"
+                    title="编辑昵称"
                   />
                 </CurrentAccountItem>
-                <ColorRow role="radiogroup" aria-label="Account colour">
+                <ColorRow role="radiogroup" aria-label="账户颜色">
                   {Object.entries(ACCOUNT_COLORS).map(([key, value]) => (
                     <ColorSwatch
                       key={key}
@@ -221,7 +221,7 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
                 <DropdownDivider />
                 {accounts.length > 1 && (
                   <>
-                    <SectionLabel>Switch to</SectionLabel>
+                    <SectionLabel>切换到</SectionLabel>
                     {accounts
                       .filter(account => account.username !== currentAccount)
                       .map(account => (
@@ -256,8 +256,8 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
           <MenuDropdown ref={menuDropdownRef}>
             <IconButton
               onClick={() => { setMenuDropdownOpen(!menuDropdownOpen); setAccountDropdownOpen(false) }}
-              aria-label="Menu"
-              title="Menu"
+              aria-label="菜单"
+              title="菜单"
               aria-expanded={menuDropdownOpen}
             >
               <MdMenu size={24} />
@@ -273,7 +273,7 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
               </DropdownItem>
               <DropdownItem onClick={() => handleMenuItemClick(openSupport)}>
                 <MdFavorite size={20} />
-                Support the project
+                支持项目
               </DropdownItem>
               <DropdownItem onClick={() => handleMenuItemClick(onAboutClick)}>
                 <MdInfoOutline size={20} />
@@ -286,10 +286,10 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
 
       <ConfirmDialog
         isOpen={showLogoutConfirm}
-        title="Confirm logout"
-        message="Are you sure you want to log out?"
-        confirmLabel="Log out"
-        cancelLabel="Cancel"
+        title="确认退出登录"
+        message="确定要退出登录吗？"
+        confirmLabel="退出登录"
+        cancelLabel="取消"
         onConfirm={handleLogoutConfirm}
         onCancel={() => setShowLogoutConfirm(false)}
       />
@@ -297,13 +297,13 @@ export const Header = ({ onSettingsClick, onAddAccountClick, onChangelogClick, o
       {showNicknameDialog && (
         <NicknameEditDialog onClick={() => setShowNicknameDialog(false)}>
           <NicknameDialogContent onClick={(e) => e.stopPropagation()}>
-            <NicknameDialogTitle>Edit account nickname</NicknameDialogTitle>
+            <NicknameDialogTitle>编辑账户昵称</NicknameDialogTitle>
             <NicknameDialogSubtitle>
               Set a custom nickname for <strong>{currentAccount}</strong>
             </NicknameDialogSubtitle>
             <NicknameInput
               type="text"
-              placeholder="Enter nickname (optional)"
+              placeholder="输入昵称（可选）"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               onKeyDown={(e) => {

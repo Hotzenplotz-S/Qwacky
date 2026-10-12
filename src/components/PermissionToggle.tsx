@@ -146,7 +146,7 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
             }
             const granted = await requestPermissions('contextMenuFeatures')
             if (!granted) {
-              setStatus({ message: 'Permission request was denied', type: 'error' })
+              setStatus({ message: '权限请求被拒绝', type: 'error' })
               onChange(false)
               return
             }
@@ -157,7 +157,7 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
           enabled: true
         })
         if (response?.success) {
-          setStatus({ message: 'Reloading to apply changes...', type: 'success' })
+          setStatus({ message: '正在重新加载以应用更改……', type: 'success' })
           onChange(true)
 
           if (reloadTimeoutRef.current) clearTimeout(reloadTimeoutRef.current)
@@ -167,8 +167,8 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
         } else {
           setStatus({
             message: response?.reason === 'unsupported'
-              ? 'Autofill is not supported in this browser'
-              : 'Failed to enable feature',
+              ? '此浏览器不支持自动填充'
+              : '启用功能失败',
             type: 'error'
           })
           onChange(false)
@@ -180,7 +180,7 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
           enabled: false
         })
         if (response?.success) {
-          setStatus({ message: 'Reloading to apply changes...', type: 'success' })
+          setStatus({ message: '正在重新加载以应用更改……', type: 'success' })
           await removePermissions('contextMenuFeatures')
           onChange(false)
 
@@ -189,37 +189,37 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
             api.runtime.sendMessage({ action: 'reload-extension' })
           }, 1500)
         } else {
-          setStatus({ message: 'Failed to disable feature', type: 'error' })
+          setStatus({ message: '关闭功能失败', type: 'error' })
           onChange(true)
         }
       }
     } catch (error) {
       console.error('Toggle error:', error)
-      setStatus({ message: 'An error occurred', type: 'error' })
+      setStatus({ message: '发生错误', type: 'error' })
       onChange(!newState)
     }
   }, [name, disabled, onChange, removePermissions, checkPermission, requestPermissions, chromeNoticeSeen, isRequired])
 
   const FirefoxPermissionNotice = () => (
     <NoticeContainer>
-      <NoticeParagraph>To enable this feature:</NoticeParagraph>
+      <NoticeParagraph>启用此功能：</NoticeParagraph>
       <NoticeParagraph>1. Firefox will show a permissions request - click 'Allow'</NoticeParagraph>
       <NoticeParagraph>2. Return to the extension and toggle the feature again</NoticeParagraph>
-      <NoticeParagraph>You can disable this feature anytime later.</NoticeParagraph>
+      <NoticeParagraph>之后你可以随时关闭此功能。</NoticeParagraph>
     </NoticeContainer>
   );
 
   const ChromePermissionNotice = () => (
     <NoticeContainer>
-      <NoticeParagraph>Chrome handles permissions differently than Firefox.</NoticeParagraph>
-      <NoticeParagraph>To enable this feature, Chrome will show a permission request once. After clicking 'Done', a permissions dialog may appear.</NoticeParagraph>
-      <NoticeParagraph>If you see a permissions dialog, click 'Allow' then return to the extension and toggle the feature again.</NoticeParagraph>
-      <NoticeParagraph>For more details, see: <LinkText
+      <NoticeParagraph>Chrome 与 Firefox 的权限处理方式不同。</NoticeParagraph>
+      <NoticeParagraph>启用此功能时，Chrome 会显示一次权限请求。点击“完成”后，可能还会出现权限对话框。</NoticeParagraph>
+      <NoticeParagraph>如果出现权限对话框，请点击“允许”，然后返回扩展再次开启此功能。</NoticeParagraph>
+      <NoticeParagraph>详情请参阅： <LinkText
           href="https://github.com/Lanshuns/Qwacky/blob/main/PRIVACY.md#permissions"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Browser-Specific Permission Handling and Limitations
+          浏览器特定的权限处理与限制
         </LinkText>
       </NoticeParagraph>
     </NoticeContainer>
@@ -284,18 +284,18 @@ export const PermissionToggle: React.FC<PermissionToggleProps> = ({
       )}
       <ConfirmDialog
         isOpen={showPermissionsNotice}
-        title="Permissions notice"
+        title="权限提示"
         message={<FirefoxPermissionNotice />}
-        confirmLabel="Done"
+        confirmLabel="完成"
         onConfirm={handleNoticeDone}
         singleButton={true}
         variant="info"
       />
       <ConfirmDialog
         isOpen={showChromeNotice}
-        title="Permissions notice"
+        title="权限提示"
         message={<ChromePermissionNotice />}
-        confirmLabel="Done"
+        confirmLabel="完成"
         onConfirm={handleChromeNoticeDone}
         singleButton={true}
         variant="info"

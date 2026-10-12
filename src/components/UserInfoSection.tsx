@@ -39,10 +39,10 @@ export const UserInfoSection: React.FC<UserInfoSectionProps> = ({
   return (
     <UserInfoCard>
       <SectionHeader style={hideUserInfo ? { marginBottom: 0 } : undefined}>
-        <h2 id="user-info-heading">My account</h2>
+        <h2 id="user-info-heading">我的账户</h2>
         <UserInfoIconButton
           onClick={toggleHideUserInfo}
-          aria-label={hideUserInfo ? "Show user information" : "Hide user information"}
+          aria-label={hideUserInfo ? "显示用户信息" : "隐藏用户信息"}
           aria-expanded={!hideUserInfo}
           aria-controls="user-info-content"
         >
@@ -52,7 +52,7 @@ export const UserInfoSection: React.FC<UserInfoSectionProps> = ({
       {!hideUserInfo && (
         <div id="user-info-content" aria-labelledby="user-info-heading">
           <InfoItem>
-            <label className="highlight" id="username-label">Duck username</label>
+            <label className="highlight" id="username-label">Duck 用户名</label>
             <div
               onClick={(e) => copyToClipboard(`${userData.user.username}@duck.com`, e.nativeEvent)}
               role="button"
@@ -69,7 +69,7 @@ export const UserInfoSection: React.FC<UserInfoSectionProps> = ({
             </div>
           </InfoItem>
           <InfoItem>
-            <label className="highlight" id="email-label">Forwarding email</label>
+            <label className="highlight" id="email-label">转发邮箱</label>
             <div
               onClick={(e) => copyToClipboard(userData.user.email, e.nativeEvent)}
               role="button"
@@ -86,14 +86,14 @@ export const UserInfoSection: React.FC<UserInfoSectionProps> = ({
             </div>
           </InfoItem>
           <InfoItem>
-            <label className="highlight" id="count-label">Total generated</label>
+            <label className="highlight" id="count-label">生成总数</label>
             <div aria-labelledby="count-label">
               <span>{addressesCount}</span>
             </div>
           </InfoItem>
           {userData.invites.length > 0 && (
             <InfoItem>
-              <label id="invites-label">Invites</label>
+              <label id="invites-label">邀请数</label>
               <div aria-labelledby="invites-label">
                 <span>{userData.invites.length}</span>
               </div>
